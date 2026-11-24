@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>系统设置 · 速达跨境计件</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='7' fill='%2300288e'/><path d='M9 13l7-4 7 4v8l-7 4-7-4z' fill='none' stroke='white' stroke-width='2' stroke-linejoin='round'/></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<!-- 字体为渐进增强：加载失败时回退到系统字体，不阻塞渲染 -->
+<link rel="stylesheet" media="print" onload="this.media='all';this.onload=null"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap">
+
+<link rel="stylesheet" href="../assets/css/tokens.css">
+<link rel="stylesheet" href="../assets/css/base.css">
+<link rel="stylesheet" href="../assets/css/components.css">
+<link rel="stylesheet" href="../assets/css/layout.css">
+<link rel="stylesheet" href="../assets/css/chart.css">
+<link rel="stylesheet" href="../assets/css/utilities.css">
+</head>
+<body>
+
+<div class="l-shell">
+  <div class="l-anchor" id="shell-anchor"></div>
+
+  <main class="l-main" id="page-root">
+    <div class="l-grid-12">
+
+      <!-- 左栏 -->
+      <div class="l-col-6" style="display:flex;flex-direction:column;gap:var(--space-lg)">
+
+        <!-- 账号（F-017） -->
+        <section class="c-card c-card--pad">
+          <div class="c-card__head">
+            <span class="c-card__title">账号</span>
+            <span class="c-badge" id="account-badge">—</span>
+          </div>
+          <div class="u-flex u-items-center u-gap-md" style="margin-bottom:var(--space-md)">
+            <button type="button" class="c-avatar-btn" id="btn-avatar" title="点击更换头像" aria-label="更换头像">
+              <span class="l-sidenav__avatar" style="width:44px;height:44px;font-size:18px" id="account-avatar">—</span>
+              <span class="c-avatar-btn__badge" aria-hidden="true">
+                <svg class="icon" style="font-size:12px"><use href="#i-camera"></use></svg>
+              </span>
+            </button>
+            <div>
+              <div class="u-strong" id="account-name">未登录</div>
+              <div class="u-sm u-muted" id="account-status">—</div>
+            </div>
+          </div>
+          <input type="file" id="file-avatar" accept="image/*" hidden>
+          <div class="u-flex u-gap-sm" style="margin-bottom:var(--space-md)">
+            <button type="button" class="c-btn c-btn--secondary c-btn--sm" id="btn-pick-avatar">更换头像</button>
+            <button type="button" class="c-btn c-btn--ghost c-btn--sm" id="btn-reset-avatar" hidden>恢复默认头像</button>
+          </div>
+          <button type="button" class="c-btn c-btn--secondary c-btn--block" id="btn-logout">退出登录</button>
+          <p class="u-sm u-muted" style="margin-top:12px;line-height:1.6">
+            账号仅用于身份识别，<b>打包记录与设置保存在本机浏览器，不会上传服务器</b>；换设备登录看不到本机的数据。
+            头像会居中裁剪为 256×256；后端接口未就绪时先存在本机。
+          </p>
+        </section>
+
+        <!-- 单件收入（F-012） -->
+        <section class="c-card c-card--pad">
+          <div class="c-card__head"><span class="c-card__title">单件收入</span></div>
+          <div class="c-field" style="margin-bottom:var(--space-md)">
+            <label class="u-label" for="unit-price">每件收入（元）</label>
+            <input type="number" id="unit-price" class="c-input c-input--lg mono" min="0.01" max="100" step="0.01" inputmode="decimal">
+            <span class="u-sm u-muted">范围 0.01 – 100 元，默认 1.50 元</span>
+          </div>
+          <button type="button" class="c-btn c-btn--primary c-btn--block" id="btn-save-price">保存单价</button>
+          <p class="u-sm u-muted" style="margin-top:12px">
+            修改单价后，<b>所有历史记录的收入会按新单价重新计算</b>。
+          </p>
+        </section>
+
+        <!-- 服务器地址（F-019） -->
+        <section class="c-card c-card--pad">
+          <div class="c-card__head">
+            <span class="c-card__title">服务器地址</span>
+            <span class="u-flex u-items-center u-gap-sm u-sm u-muted">
+              <span class="c-dot" id="server-dot"></span><span id="server-label">检测中…</span>
+            </span>
+          </div>
+          <div class="c-field" style="margin-bottom:var(--space-md)">
+            <label class="u-label" for="api-endpoint">账号服务端基准地址</label>
+            <input type="text" id="api-endpoint" class="c-input mono" placeholder="http://localhost:5173" spellcheck="false">
+          </div>
+          <div class="u-flex u-gap-sm">
+            <button type="button" class="c-btn c-btn--secondary c-btn--sm" id="btn-test-server">测试并连接</button>
+            <button type="button" class="c-btn c-btn--ghost c-btn--sm" id="btn-reset-server">恢复默认</button>
+          </div>
+        </section>
+      </div>
+
+      <!-- 右栏 -->
+      <div class="l-col-6" style="display:flex;flex-direction:column;gap:var(--space-lg)">
+
+        <!-- 每日提醒（F-013） -->
+        <section class="c-card c-card--pad">
+          <div class="c-card__head"><span class="c-card__title">每日提醒</span></div>
+          <label class="u-flex u-items-center u-justify-between" style="margin-bottom:var(--space-md)">
+            <span>开启提醒</span>
+            <span class="c-switch">
+              <input type="checkbox" id="reminder-enabled">
+              <span class="c-switch__track"></span>
+            </span>
+          </label>
+          <div class="c-field" style="margin-bottom:var(--space-md)">
+            <label class="u-label" for="reminder-time">提醒时间</label>
+            <input type="time" id="reminder-time" class="c-input">
+          </div>
+          <div class="c-field" style="margin-bottom:var(--space-md)">
+            <label class="u-label" for="reminder-text">提醒文案</label>
+            <input type="text" id="reminder-text" class="c-input" maxlength="60">
+          </div>
+          <button type="button" class="c-btn c-btn--primary c-btn--block" id="btn-save-reminder">保存提醒设置</button>
+          <p class="u-sm u-muted" style="margin-top:12px">提醒依赖浏览器通知权限，页面需保持打开（可切到后台）。</p>
+        </section>
+
+        <!-- 数据（F-011） -->
+        <section class="c-card c-card--pad" id="export">
+          <div class="c-card__head"><span class="c-card__title">数据</span></div>
+          <div style="display:flex;flex-direction:column;gap:8px">
+            <button type="button" class="c-btn c-btn--secondary" id="btn-export-month">导出本月 CSV</button>
+            <button type="button" class="c-btn c-btn--secondary" id="btn-export-all">导出全部 CSV</button>
+            <button type="button" class="c-btn c-btn--secondary" id="btn-backup">备份数据（JSON）</button>
+            <button type="button" class="c-btn c-btn--secondary" id="btn-restore">恢复备份（JSON）</button>
+            <input type="file" id="file-restore" accept="application/json,.json" hidden>
+          </div>
+          <p class="u-sm u-muted" style="margin-top:12px;line-height:1.6">
+            导出的 CSV 含「日期、件数、单价、收入、备注」五列，可直接在 Excel 打开对账。
+            清理浏览器数据会一并清除记录，建议定期备份。
+          </p>
+        </section>
+
+        <!-- 关于 -->
+        <section class="c-card c-card--pad">
+          <div class="c-card__head"><span class="c-card__title">关于</span></div>
+          <div class="c-kv"><span class="c-kv__k">版本</span><span class="c-kv__v">v1.0.1</span></div>
+          <div class="c-kv" style="margin-top:6px"><span class="c-kv__k">数据存放</span><span class="c-kv__v" id="about-storage">本机浏览器</span></div>
+          <div class="c-kv" style="margin-top:6px"><span class="c-kv__k">记录条数</span><span class="c-kv__v" id="about-count">0</span></div>
+          <div class="c-kv" style="margin-top:6px"><span class="c-kv__k">需求依据</span><span class="c-kv__v">PRD v1.0.1</span></div>
+          <button type="button" class="c-btn c-btn--danger c-btn--block" id="btn-clear" style="margin-top:var(--space-md)">清空全部数据</button>
+        </section>
+      </div>
+    </div>
+  </main>
+</div>
+
+<script src="../assets/js/config.js"></script>
+<script src="../assets/js/core.js"></script>
+<script src="../assets/js/store.js"></script>
+<script src="../assets/js/api.js"></script>
+<script src="../assets/js/auth.js"></script>
+<script src="../assets/js/icons.js"></script>
+<script src="../assets/js/avatar.js"></script>
+<script src="../assets/js/ui.js"></script>
+<script src="../assets/js/pages/settings.js"></script>
+</body>
+</html>

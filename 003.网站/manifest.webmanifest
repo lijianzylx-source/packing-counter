@@ -1,0 +1,20 @@
+{
+  "name": "每日包裹打包统计助手",
+  "short_name": "打包统计",
+  "description": "跨境包裹每日打包数量与收入统计，数据保存在本地浏览器。",
+  "lang": "zh-CN",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#F8FAFC",
+  "theme_color": "#2563EB",
+  "icons": [
+    {
+      "src": "assets/icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ]
+}

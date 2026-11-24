@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>登录 · 速达跨境计件</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='7' fill='%2300288e'/><path d='M9 13l7-4 7 4v8l-7 4-7-4z' fill='none' stroke='white' stroke-width='2' stroke-linejoin='round'/></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<!-- 字体为渐进增强：加载失败时回退到系统字体，不阻塞渲染 -->
+<link rel="stylesheet" media="print" onload="this.media='all';this.onload=null"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap">
+
+<link rel="stylesheet" href="../assets/css/tokens.css">
+<link rel="stylesheet" href="../assets/css/base.css">
+<link rel="stylesheet" href="../assets/css/components.css">
+<link rel="stylesheet" href="../assets/css/layout.css">
+<link rel="stylesheet" href="../assets/css/chart.css">
+<link rel="stylesheet" href="../assets/css/utilities.css">
+</head>
+<body>
+
+<div class="l-auth">
+  <!-- 顶部状态条 -->
+  <header class="l-auth__bar">
+    <div class="u-flex u-items-center u-gap-md">
+      <span class="c-dot c-dot--ok" id="server-dot"></span>
+      <span id="server-label">正在检测服务器…</span>
+    </div>
+    <span class="mono" id="live-clock">—</span>
+  </header>
+
+  <main class="l-auth__main">
+    <div class="l-auth__panel">
+
+      <!-- 品牌：居中置顶 -->
+      <div class="auth-hero">
+        <span class="l-sidenav__mark" style="width:48px;height:48px;margin:0 auto">
+          <svg class="icon" style="font-size:28px" aria-hidden="true"><use href="#i-inventory_2"></use></svg>
+        </span>
+        <h1 class="head" style="font-size:28px;line-height:36px;font-weight:700;color:var(--c-text-display);margin-top:var(--space-md)">速达跨境计件</h1>
+        <p class="u-label" style="letter-spacing:.08em;margin-top:2px">每日打包统计 · v1.0.1</p>
+      </div>
+
+      <!-- 鉴权控制台 -->
+      <section>
+        <div class="c-card c-card--strong c-card--pad">
+
+          <div class="c-card__head" style="align-items:center">
+            <div class="u-flex u-items-center u-gap-sm">
+              <button type="button" class="c-btn c-btn--sm" id="tab-login" aria-pressed="true" data-mode="login">
+                <svg class="icon" style="font-size:18px" aria-hidden="true"><use href="#i-badge"></use></svg>账号登录
+              </button>
+              <button type="button" class="c-btn c-btn--sm" id="tab-register" aria-pressed="false" data-mode="register">
+                <svg class="icon" style="font-size:18px" aria-hidden="true"><use href="#i-person_add"></use></svg>注册新账号
+              </button>
+            </div>
+            <span class="u-sm u-muted u-flex u-items-center u-gap-sm">
+              <svg class="icon" style="font-size:16px" aria-hidden="true"><use href="#i-verified_user"></use></svg>身份鉴权
+            </span>
+          </div>
+
+          <!-- 错误提示（内联红框，零弹窗） -->
+          <div class="c-alert" id="auth-alert" hidden style="margin-bottom:var(--space-lg)">
+            <svg class="icon" style="font-size:22px;flex:none" aria-hidden="true"><use href="#i-error"></use></svg>
+            <div>
+              <div class="u-label" id="auth-alert-title" style="color:var(--c-error-deep)">鉴权失败</div>
+              <p id="auth-alert-text" style="margin-top:4px"></p>
+            </div>
+          </div>
+
+          <form id="auth-form" novalidate>
+            <div class="c-field" style="margin-bottom:var(--space-lg)">
+              <div class="c-label">
+                <label for="username">用户名</label>
+                <span class="u-sm u-muted">2–20 位，中英文 / 数字 / 下划线</span>
+              </div>
+              <input type="text" id="username" name="username" class="c-input c-input--lg"
+                     autocomplete="username" autocapitalize="none" spellcheck="false"
+                     placeholder="例如：pack01" required>
+            </div>
+
+            <div class="c-field" style="margin-bottom:var(--space-lg)">
+              <div class="c-label">
+                <label for="password">密码</label>
+                <span class="u-sm u-muted" id="caps-warning" hidden>大写锁定已开启</span>
+              </div>
+              <div style="position:relative">
+                <input type="password" id="password" name="password" class="c-input c-input--lg"
+                       autocomplete="current-password" placeholder="不少于 6 位" required>
+                <button type="button" id="toggle-pwd"
+                        class="icon"
+                        style="position:absolute;right:12px;top:50%;transform:translateY(-50%);background:none;border:0;padding:0;color:var(--c-text-muted)"
+                        aria-label="显示或隐藏密码"><use href="#i-visibility"></use></button>
+              </div>
+            </div>
+
+            <div class="c-field" id="confirm-group" style="margin-bottom:var(--space-lg)" hidden>
+              <div class="c-label">
+                <label for="password2">确认密码</label>
+                <span class="u-sm u-muted">再次输入以核验一致性</span>
+              </div>
+              <input type="password" id="password2" name="password2" class="c-input c-input--lg"
+                     autocomplete="new-password" placeholder="请再次确认输入密码" required>
+            </div>
+
+            <div class="u-flex u-items-center u-justify-between" style="margin-bottom:var(--space-lg)">
+              <label class="u-flex u-items-center u-gap-sm" style="cursor:pointer">
+                <input type="checkbox" id="remember" checked style="width:16px;height:16px;border-radius:var(--radius-sm);border-color:var(--c-border-strong)">
+                <span>在此设备保持登录状态</span>
+              </label>
+              <button type="button" id="btn-forgot" class="u-label" style="background:none;border:0;color:var(--c-secondary);cursor:pointer">
+                忘记密码？
+              </button>
+            </div>
+
+            <button type="submit" class="c-btn c-btn--primary c-btn--lg c-btn--block" id="auth-submit">
+              <svg class="icon" style="font-size:22px" aria-hidden="true"><use href="#i-login"></use></svg>
+              <span id="auth-submit-text">登录并进入包装工作台</span>
+            </button>
+          </form>
+
+          <!-- 离线保底（F-018） -->
+          <div style="margin-top:var(--space-lg);padding-top:var(--space-lg);border-top:1px solid var(--c-border-subtle)">
+            <div class="c-card" style="background:var(--c-surface-elevated);display:flex;flex-direction:column;gap:var(--space-md)">
+              <div class="u-flex u-items-center u-gap-sm">
+                <svg class="icon" style="font-size:20px;color:var(--c-income-deep)" aria-hidden="true"><use href="#i-cloud_off"></use></svg>
+                <span class="u-label u-label-strong">离线保底模式</span>
+                <span class="c-badge c-badge--income">记录照常可用</span>
+              </div>
+              <p class="u-sm u-muted">服务器不可达时，仍可在本机记录与统计（不做账号校验）。</p>
+              <button type="button" class="c-btn c-btn--secondary" id="btn-offline">以离线模式直接进入（免登录）</button>
+            </div>
+          </div>
+
+          <!-- 服务器地址（F-019） -->
+          <div style="margin-top:var(--space-md)">
+            <button type="button" class="u-label u-muted u-flex u-items-center u-justify-between u-gap-sm"
+                    id="btn-server-config" style="width:100%;background:none;border:0;padding:8px 0;cursor:pointer;text-align:left">
+              <span class="u-flex u-items-center u-gap-sm">
+                <svg class="icon" style="font-size:16px" aria-hidden="true"><use href="#i-settings_ethernet"></use></svg>
+                服务器地址设置
+              </span>
+              <svg class="icon" style="font-size:18px" aria-hidden="true"><use href="#i-expand_more"></use></svg>
+            </button>
+
+            <div id="server-config" hidden
+                 style="margin-top:8px;padding:var(--space-md);background:var(--c-surface-elevated);border:1px solid var(--c-border-subtle);border-radius:var(--radius-md)">
+              <div class="c-field" style="margin-bottom:var(--space-md)">
+                <label class="u-label" for="api-endpoint">账号服务端地址</label>
+                <input type="text" id="api-endpoint" class="c-input c-input--sm mono" placeholder="http://localhost:5173">
+              </div>
+              <div class="u-flex u-gap-sm">
+                <button type="button" class="c-btn c-btn--secondary c-btn--sm" id="btn-test-server">
+                  <svg class="icon" style="font-size:16px" aria-hidden="true"><use href="#i-sync"></use></svg>测试并连接
+                </button>
+                <button type="button" class="c-btn c-btn--ghost c-btn--sm" id="btn-reset-server">恢复默认</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <footer class="l-auth__bar">
+    <span>记录数据存于本机浏览器（localStorage）· 账号用于身份识别</span>
+    <span class="mono">v1.0.1</span>
+  </footer>
+</div>
+
+<script src="../assets/js/config.js"></script>
+<script src="../assets/js/core.js"></script>
+<script src="../assets/js/store.js"></script>
+<script src="../assets/js/api.js"></script>
+<script src="../assets/js/auth.js"></script>
+<script src="../assets/js/icons.js"></script>
+<script src="../assets/js/ui.js"></script>
+<script src="../assets/js/pages/login.js"></script>
+</body>
+</html>

@@ -1,0 +1,76 @@
+/* ============================================================
+ * 图表相关样式（SVG 图表由 assets/js/chart.js 生成）
+ * ============================================================ */
+
+.c-chart {
+  position: relative;
+  width: 100%;
+}
+.c-chart svg { display: block; width: 100%; height: auto; }
+
+.c-chart-tip {
+  position: absolute;
+  pointer-events: none;
+  z-index: 5;
+  min-width: 120px;
+  padding: 8px 10px;
+  background: var(--c-surface-card);
+  border: 1px solid var(--c-border-strong);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-popover);
+  font-size: 12px;
+  line-height: 18px;
+  color: var(--c-text-body);
+}
+.c-chart-tip[hidden] { display: none; }
+.c-chart-tip__date {
+  font-weight: 600;
+  color: var(--c-text-display);
+  margin-bottom: 4px;
+}
+.c-chart-tip__row {
+  display: flex; align-items: baseline; justify-content: space-between; gap: 14px;
+}
+.c-chart-tip__row span:last-child {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+  color: var(--c-text-display);
+}
+
+/* 图表下方：表格视图开关与说明 */
+.c-chart-foot {
+  display: flex; align-items: center; justify-content: space-between; gap: var(--space-md);
+  margin-top: var(--space-md);
+}
+.c-chart-note { font-size: 12px; line-height: 16px; color: var(--c-text-muted); text-align: right; }
+
+/* 图表的筛选行（统一放在图表上方，作用于整张图） */
+.c-chart-filters {
+  display: flex; align-items: center; justify-content: space-between; gap: var(--space-md);
+  flex-wrap: wrap;
+  padding-bottom: var(--space-md);
+  border-bottom: 1px solid var(--c-border-subtle);
+  margin-bottom: var(--space-lg);
+}
+.c-seg {
+  display: inline-flex;
+  padding: 3px;
+  gap: 2px;
+  background: var(--c-surface-elevated);
+  border: 1px solid var(--c-border-subtle);
+  border-radius: var(--radius-full);
+}
+.c-seg button {
+  border: 0; background: transparent; cursor: pointer;
+  font-family: inherit; font-size: 12px; line-height: 16px; font-weight: 600;
+  color: var(--c-text-muted);
+  padding: 6px 14px; border-radius: var(--radius-full);
+}
+.c-seg button[aria-pressed="true"] {
+  background: var(--c-surface-card);
+  color: var(--c-primary);
+  box-shadow: var(--shadow-card);
+}
+
+/* 图表的数据表格（等价读数通道） */
+.c-chart-table { max-height: 260px; overflow-y: auto; margin-top: var(--space-md); }

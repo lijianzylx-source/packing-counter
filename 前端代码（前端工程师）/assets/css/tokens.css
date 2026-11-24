@@ -1,0 +1,97 @@
+/* ============================================================
+ * 设计令牌（Design Tokens）
+ * 全站唯一的色板 / 字阶 / 间距 / 圆角来源。
+ * 工具类（assets/css/utilities.css）与组件样式（assets/css/components.css）
+ * 都引用这里的变量，改一个值即可全站生效。
+ * 对应规范：docs/设计规范.md
+ * ============================================================ */
+
+:root {
+  /* ---------- 品牌与主色 ---------- */
+  --c-primary:            #00288e;   /* 深主蓝：主按钮、强调 */
+  --c-primary-container:  #1e40af;   /* 作业蓝：提交、选中 */
+  --c-primary-hover:      #1e3a8a;
+  --c-primary-soft:       #dde1ff;
+  --c-on-primary:         #ffffff;
+  --c-on-primary-soft:    #001453;
+
+  --c-secondary:          #0051d5;   /* 辅助蓝：链接、次级强调 */
+  --c-secondary-container:#316bf3;
+
+  /* ---------- 结算金额（专用琥珀色，不与状态色混用） ---------- */
+  --c-income:             #F59E0B;
+  --c-income-deep:        #B45309;
+  --c-income-soft:        #FEF3C7;
+
+  /* ---------- 语义状态 ---------- */
+  --c-success:            #10B981;
+  --c-success-deep:       #047857;
+  --c-success-soft:       #ECFDF5;
+  --c-warning:            #F59E0B;
+  --c-warning-deep:       #B45309;
+  --c-warning-soft:       #FFFBEB;
+  --c-error:              #EF4444;
+  --c-error-deep:         #991B1B;
+  --c-error-soft:         #FEF2F2;
+
+  /* ---------- 图表专用 ---------- */
+  --c-chart:              #2563EB;   /* 单序列图表主色（已通过色盲/对比度校验） */
+
+  /* ---------- 表面与描边 ---------- */
+  --c-surface-bg:         #F8FAFC;   /* 页面底 */
+  --c-surface-card:       #FFFFFF;   /* 卡片面 */
+  --c-surface-elevated:   #F1F5F9;   /* 次级面 / 表头 */
+  --c-surface-container:  #EFF4FF;   /* 选中态面 */
+  --c-surface-container-2:#DCE9FF;
+  --c-border-subtle:      #E2E8F0;   /* 1px 分隔线 */
+  --c-border-strong:      #CBD5E1;   /* 输入框 / 强分隔 */
+  --c-outline:            #757684;
+
+  /* ---------- 文字 ---------- */
+  --c-text-display:       #0F172A;   /* 标题与数据 */
+  --c-text-body:          #334155;   /* 正文 */
+  --c-text-muted:         #64748B;   /* 次要说明 */
+  --c-text-disabled:      #94A3B8;
+
+  /* ---------- 字体 ---------- */
+  --font-body:  Inter, system-ui, -apple-system, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+  --font-head:  "Space Grotesk", Inter, system-ui, "PingFang SC", "Microsoft YaHei", sans-serif;
+  --font-mono:  "JetBrains Mono", ui-monospace, SFMono-Regular, Consolas, monospace;
+
+  /* ---------- 字阶 ---------- */
+  --text-display-income:  700 40px/48px var(--font-mono);
+  --text-display-income-sm:700 32px/40px var(--font-mono);
+  --text-headline-lg:     700 28px/36px var(--font-head);
+  --text-headline-md:     600 22px/28px var(--font-head);
+  --text-headline-sm:     600 18px/24px var(--font-head);
+  --text-body-lg:         500 16px/24px var(--font-body);
+  --text-body-md:         400 14px/20px var(--font-body);
+  --text-body-sm:         400 12px/16px var(--font-body);
+  --text-label-ui:        600 12px/16px var(--font-body);
+  --text-data-lg:         600 20px/26px var(--font-mono);
+  --text-data-md:         500 14px/18px var(--font-mono);
+
+  /* ---------- 间距 ---------- */
+  --space-xs:  .25rem;
+  --space-sm:  .5rem;
+  --space-md:  .75rem;
+  --space-lg:  1.25rem;
+  --space-xl:  2rem;
+  --gutter:    1rem;
+  --gutter-desktop: 1.5rem;
+
+  /* ---------- 圆角（工业风：小而克制） ---------- */
+  --radius-sm:   2px;
+  --radius:      4px;
+  --radius-md:   6px;
+  --radius-lg:   8px;
+  --radius-full: 9999px;
+
+  /* ---------- 阴影（仅一层，扁平化结构） ---------- */
+  --shadow-card:    0 1px 2px rgba(15, 23, 42, .04);
+  --shadow-popover: 0 6px 20px rgba(15, 23, 42, .10);
+
+  /* ---------- 触达尺寸（触控下限） ---------- */
+  --tap-min: 44px;
+  --tap-target: 56px;
+}

@@ -1,0 +1,270 @@
+/* ============================================================
+ * 组件层：跨页面复用的 UI 原子（按钮 / 卡片 / 输入 / 徽章 / 表格 / 行内编辑）
+ * 命名规范：.c-<block>__<element>（BEM 简化版）
+ * ============================================================ */
+
+/* ---------------- 卡片 ---------------- */
+.c-card {
+  background: var(--c-surface-card);
+  border: 1px solid var(--c-border-subtle);
+  border-radius: var(--radius-md);
+}
+.c-card--strong { border-color: var(--c-border-strong); }
+.c-card--pad   { padding: var(--space-lg); }
+.c-card__head {
+  display: flex; align-items: center; justify-content: space-between; gap: var(--space-md);
+  padding-bottom: var(--space-sm);
+  border-bottom: 1px solid var(--c-border-subtle);
+}
+.c-card__title { font-family: var(--font-head); font-size: 18px; line-height: 24px; font-weight: 600; color: var(--c-text-display); }
+.c-card__sub   { font-size: 12px; line-height: 16px; color: var(--c-text-muted); }
+
+/* ---------------- 按钮 ---------------- */
+.c-btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: var(--space-sm);
+  min-height: var(--tap-min);
+  padding: 0 var(--space-lg);
+  border: 1px solid transparent;
+  border-radius: var(--radius-md);
+  font-size: 14px; line-height: 20px; font-weight: 600;
+  transition: background-color .15s, border-color .15s, transform .06s;
+}
+.c-btn:active { transform: translateY(1px); }
+.c-btn:disabled { opacity: .5; }
+
+.c-btn--primary { background: var(--c-primary-container); color: var(--c-on-primary); border-color: var(--c-primary-container); }
+.c-btn--primary:hover { background: var(--c-primary-hover); border-color: var(--c-primary-hover); }
+
+.c-btn--secondary { background: var(--c-surface-card); color: var(--c-text-display); border-color: var(--c-border-strong); }
+.c-btn--secondary:hover { background: var(--c-surface-elevated); }
+
+.c-btn--ghost { background: transparent; color: var(--c-text-body); border-color: var(--c-border-subtle); }
+.c-btn--ghost:hover { background: var(--c-surface-elevated); color: var(--c-text-display); }
+
+.c-btn--danger { background: transparent; color: var(--c-error-deep); border-color: var(--c-error); }
+.c-btn--danger:hover { background: var(--c-error-soft); }
+
+.c-btn--lg { min-height: var(--tap-target); font-size: 16px; line-height: 24px; }
+.c-btn--sm { min-height: 32px; padding: 0 var(--space-md); font-size: 12px; line-height: 16px; }
+.c-btn--block { width: 100%; }
+
+/* 快速加件（触控大、字等宽） */
+.c-step {
+  min-height: 48px;
+  padding: 0 var(--space-sm);
+  background: var(--c-surface-card);
+  border: 1.5px solid var(--c-border-strong);
+  border-radius: var(--radius-md);
+  font-family: var(--font-mono); font-size: 14px; font-weight: 600;
+  color: var(--c-text-display);
+  transition: background-color .15s, transform .06s;
+}
+.c-step:hover { background: var(--c-surface-elevated); }
+.c-step:active { transform: translateY(1px); }
+
+/* ---------------- 表单 ---------------- */
+.c-field { display: flex; flex-direction: column; gap: 6px; }
+.c-label {
+  display: flex; align-items: center; justify-content: space-between; gap: var(--space-sm);
+  font-size: 12px; line-height: 16px; font-weight: 600; color: var(--c-text-display);
+}
+.c-hint { font-size: 12px; line-height: 16px; color: var(--c-text-muted); }
+.c-req { color: var(--c-error); }
+
+.c-input {
+  width: 100%;
+  min-height: var(--tap-min);
+  padding: 0 var(--space-md);
+  background: var(--c-surface-card);
+  border: 1px solid var(--c-border-strong);
+  border-radius: var(--radius-md);
+  font-size: 14px; line-height: 20px;
+  color: var(--c-text-display);
+  transition: border-color .15s, box-shadow .15s;
+}
+.c-input::placeholder { color: var(--c-text-disabled); }
+.c-input:focus {
+  outline: none;
+  border-color: var(--c-primary);
+  box-shadow: 0 0 0 3px var(--c-primary-soft);
+}
+.c-input--lg { min-height: var(--tap-target); font-family: var(--font-mono); font-size: 26px; font-weight: 700; }
+.c-input--sm { min-height: 32px; font-size: 13px; }
+/* 计件数量输入：定宽，单位在框外
+   150px 依据 26px 等宽字排版：可容纳 6 位数（999999）且留有余量，
+   宽度约为下方快捷加件按钮（6 栏栅格）的 2 格，整卡视觉更利落。 */
+.c-input--count { width: 150px; max-width: 100%; text-align: center; }
+
+/* 只读字段（如首页的锁定日期） */
+.c-readonly {
+  display: flex; align-items: center; gap: var(--space-sm);
+  min-height: var(--tap-min);
+  padding: 0 var(--space-md);
+  background: var(--c-surface-elevated);
+  border: 1px solid var(--c-border-subtle);
+  border-radius: var(--radius-md);
+  font-size: 15px; color: var(--c-text-display);
+}
+
+/* 开关 */
+.c-switch { position: relative; display: inline-block; width: 44px; height: 26px; flex: none; }
+.c-switch input { opacity: 0; width: 0; height: 0; }
+.c-switch__track {
+  position: absolute; inset: 0; cursor: pointer;
+  background: var(--c-border-strong); border-radius: var(--radius-full);
+  transition: background-color .18s;
+}
+.c-switch__track::before {
+  content: ""; position: absolute; left: 3px; top: 3px;
+  width: 20px; height: 20px; border-radius: 50%;
+  background: #fff; box-shadow: 0 1px 3px rgba(15, 23, 42, .3);
+  transition: transform .18s;
+}
+.c-switch input:checked + .c-switch__track { background: var(--c-primary); }
+.c-switch input:checked + .c-switch__track::before { transform: translateX(18px); }
+.c-switch input:focus-visible + .c-switch__track { outline: 2px solid var(--c-primary); outline-offset: 2px; }
+
+/* ---------------- 徽章 / 状态点 ---------------- */
+.c-badge {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 2px var(--space-sm);
+  border: 1px solid var(--c-border-subtle);
+  border-radius: var(--radius);
+  background: var(--c-surface-elevated);
+  font-size: 11px; line-height: 16px; font-weight: 600;
+  color: var(--c-text-muted);
+}
+.c-badge--primary { background: var(--c-surface-container); border-color: var(--c-primary-soft); color: var(--c-primary); }
+.c-badge--success { background: var(--c-success-soft); border-color: #A7F3D0; color: var(--c-success-deep); }
+.c-badge--warning { background: var(--c-warning-soft); border-color: #FDE68A; color: var(--c-warning-deep); }
+.c-badge--error   { background: var(--c-error-soft); border-color: #FECACA; color: var(--c-error-deep); }
+.c-badge--income  { background: var(--c-income-soft); border-color: #FDE68A; color: var(--c-income-deep); }
+
+.c-dot { width: 8px; height: 8px; flex: none; border-radius: 50%; background: var(--c-text-disabled); }
+.c-dot--ok { background: var(--c-success); }
+.c-dot--warn { background: var(--c-warning); }
+.c-dot--err { background: var(--c-error); }
+
+/* ---------------- 指标卡 ---------------- */
+.c-kpi {
+  display: flex; flex-direction: column; justify-content: space-between; gap: var(--space-sm);
+  padding: var(--space-md);
+  background: var(--c-surface-card);
+  border: 1px solid var(--c-border-subtle);
+  border-radius: var(--radius-md);
+}
+.c-kpi__label { font-size: 12px; line-height: 16px; color: var(--c-text-muted); }
+.c-kpi__value { font-family: var(--font-mono); font-size: 32px; line-height: 40px; font-weight: 700; color: var(--c-text-display); }
+.c-kpi__value--sm { font-size: 20px; line-height: 26px; }
+.c-kpi__value--income { color: var(--c-income-deep); }
+.c-kpi__unit { font-size: 12px; color: var(--c-text-muted); }
+.c-kpi__foot { font-size: 12px; line-height: 16px; color: var(--c-text-muted); }
+
+/* ---------------- 提示条 / 错误框（零弹窗策略） ---------------- */
+.c-alert {
+  display: flex; align-items: flex-start; gap: var(--space-sm);
+  padding: var(--space-md);
+  border: 1.5px solid var(--c-error);
+  border-radius: var(--radius-md);
+  background: var(--c-error-soft);
+  color: var(--c-error-deep);
+  font-size: 14px; line-height: 20px;
+}
+.c-alert--info { border-color: var(--c-border-strong); background: var(--c-surface-elevated); color: var(--c-text-body); }
+.c-alert--warn { border-color: var(--c-warning); background: var(--c-warning-soft); color: var(--c-warning-deep); }
+.c-alert--ok { border-color: var(--c-success); background: var(--c-success-soft); color: var(--c-success-deep); }
+.c-alert[hidden] { display: none; }
+
+/* ---------------- 数据表 ---------------- */
+.c-table { width: 100%; text-align: left; }
+.c-table thead th {
+  padding: var(--space-md);
+  background: var(--c-surface-elevated);
+  border-bottom: 1px solid var(--c-border-strong);
+  font-size: 12px; line-height: 16px; font-weight: 600; color: var(--c-text-muted);
+  white-space: nowrap;
+}
+.c-table tbody td {
+  padding: var(--space-md);
+  border-bottom: 1px solid var(--c-border-subtle);
+  font-size: 14px; line-height: 20px;
+}
+.c-table tbody tr:hover { background: var(--c-surface-elevated); }
+.c-table tbody tr[data-editing="true"] { background: var(--c-surface-container); }
+.c-table .num { text-align: right; font-family: var(--font-mono); font-variant-numeric: tabular-nums; }
+.c-table .strong { font-weight: 600; color: var(--c-text-display); }
+.c-table__empty { padding: var(--space-xl); text-align: center; color: var(--c-text-muted); }
+
+/* 行内操作按钮 */
+.c-row-actions { display: inline-flex; gap: 6px; }
+.c-row-btn {
+  min-width: 32px; height: 32px; padding: 0 var(--space-sm);
+  background: var(--c-surface-card);
+  border: 1px solid var(--c-border-strong);
+  border-radius: var(--radius);
+  font-size: 12px; font-weight: 600; color: var(--c-text-display);
+}
+.c-row-btn:hover { background: var(--c-surface-elevated); }
+.c-row-btn--danger { color: var(--c-text-muted); }
+.c-row-btn--danger:hover { background: var(--c-error-soft); color: var(--c-error-deep); border-color: var(--c-error); }
+.c-row-btn--primary { background: var(--c-primary-container); color: var(--c-on-primary); border-color: var(--c-primary-container); }
+
+/* ---------------- 头像 ---------------- */
+
+/* 可点击的头像（设置页）：角标提示可更换 */
+.c-avatar-btn {
+  position: relative;
+  display: inline-block;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  border-radius: 50%;
+  cursor: pointer;
+  line-height: 0;
+}
+.c-avatar-btn:focus-visible { outline: 2px solid var(--c-primary); outline-offset: 2px; }
+.c-avatar-btn__badge {
+  position: absolute;
+  right: -2px;
+  bottom: -2px;
+  width: 18px;
+  height: 18px;
+  display: grid; place-items: center;
+  border-radius: 50%;
+  background: var(--c-primary);
+  color: #fff;
+  border: 2px solid var(--c-surface-card);
+  line-height: 1;
+}
+.c-avatar-btn:hover .c-avatar-btn__badge { background: var(--c-primary-hover); }
+
+/* 使用图片时的头像 */
+.l-sidenav__avatar.has-image,
+.account-avatar.has-image {
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+/* ---------------- 键值对（键 → 值） ---------------- */
+.c-kv { display: flex; align-items: baseline; justify-content: space-between; gap: var(--space-sm); font-size: 13px; }
+.c-kv__k { color: var(--c-text-muted); }
+.c-kv__v { font-family: var(--font-mono); font-weight: 600; color: var(--c-text-display); }
+
+/* ---------------- Toast（全局轻提示，非模态） ---------------- */
+.c-toast {
+  position: fixed; z-index: 60;
+  left: 50%; transform: translate(-50%, 12px);
+  bottom: 24px;
+  max-width: calc(100% - 32px);
+  padding: 10px var(--space-lg);
+  background: var(--c-text-display); color: #fff;
+  border-radius: var(--radius-full);
+  font-size: 14px; line-height: 20px;
+  box-shadow: var(--shadow-popover);
+  opacity: 0; pointer-events: none;
+  transition: opacity .2s, transform .2s;
+}
+.c-toast[data-show="true"] { opacity: 1; transform: translate(-50%, 0); }
+.c-toast[data-tone="error"] { background: var(--c-error-deep); }
+.c-toast[data-tone="ok"] { background: var(--c-success-deep); }

@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+
+<html class="h-full" lang="zh-CN"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>速达跨境计件 - 工位端登录/切换系统</title>
+<!-- Material Symbols Outlined -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Google Fonts: Space Grotesk, Inter, JetBrains Mono -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@500;600;700&amp;family=Space+Grotesk:wght@600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS v3 -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+            "secondary-fixed": "#dbe1ff",
+            "error": "#ba1a1a",
+            "border-subtle": "#E2E8F0",
+            "error-container": "#ffdad6",
+            "outline-variant": "#c4c5d5",
+            "surface-container-high": "#dce9ff",
+            "on-primary": "#ffffff",
+            "on-tertiary-fixed-variant": "#6e3900",
+            "on-tertiary-fixed": "#2f1500",
+            "on-background": "#0b1c30",
+            "on-error-container": "#93000a",
+            "surface-container-highest": "#d3e4fe",
+            "primary-container": "#1e40af",
+            "primary-fixed": "#dde1ff",
+            "surface-tint": "#3755c3",
+            "background": "#f8f9ff",
+            "secondary-fixed-dim": "#b4c5ff",
+            "tertiary-fixed": "#ffdcc3",
+            "surface-bright": "#f8f9ff",
+            "outline": "#757684",
+            "status-connected": "#10B981",
+            "tertiary-container": "#743d00",
+            "text-display": "#0F172A",
+            "on-tertiary": "#ffffff",
+            "surface-container-lowest": "#ffffff",
+            "surface-card": "#FFFFFF",
+            "on-secondary": "#ffffff",
+            "inverse-primary": "#b8c4ff",
+            "on-tertiary-container": "#ffa85d",
+            "on-surface": "#0b1c30",
+            "on-error": "#ffffff",
+            "on-surface-variant": "#444653",
+            "on-primary-fixed": "#001453",
+            "surface-container": "#e5eeff",
+            "secondary": "#0051d5",
+            "surface-bg": "#F8FAFC",
+            "inverse-on-surface": "#eaf1ff",
+            "income-amber-deep": "#B45309",
+            "surface-container-low": "#eff4ff",
+            "border-strong": "#CBD5E1",
+            "on-primary-container": "#a8b8ff",
+            "inverse-surface": "#213145",
+            "tertiary-fixed-dim": "#ffb77d",
+            "status-warning": "#F59E0B",
+            "status-error": "#EF4444",
+            "surface-elevated": "#F1F5F9",
+            "primary": "#00288e",
+            "text-muted": "#64748B",
+            "on-secondary-container": "#fefcff",
+            "primary-fixed-dim": "#b8c4ff",
+            "surface-variant": "#d3e4fe",
+            "surface-dim": "#cbdbf5",
+            "on-secondary-fixed-variant": "#003ea8",
+            "tertiary": "#532a00",
+            "surface": "#f8f9ff",
+            "on-secondary-fixed": "#00174b",
+            "on-primary-fixed-variant": "#173bab",
+            "income-amber": "#F59E0B",
+            "secondary-container": "#316bf3"
+          },
+          "borderRadius": {
+            "DEFAULT": "0.125rem",
+            "lg": "0.25rem",
+            "xl": "0.5rem",
+            "full": "0.75rem"
+          },
+          "spacing": {
+            "gutter-desktop": "1.5rem",
+            "space-xl": "2rem",
+            "margin": "1rem",
+            "margin-desktop": "2rem",
+            "space-xs": "0.25rem",
+            "space-lg": "1.25rem",
+            "space-md": "0.75rem",
+            "gutter": "1rem",
+            "space-sm": "0.5rem"
+          },
+          "fontFamily": {
+            "label-ui": ["Inter", "sans-serif"],
+            "label-data-lg": ["JetBrains Mono", "monospace"],
+            "body-lg": ["Inter", "sans-serif"],
+            "body-sm": ["Inter", "sans-serif"],
+            "body-md": ["Inter", "sans-serif"],
+            "label-data-md": ["JetBrains Mono", "monospace"],
+            "display-income": ["JetBrains Mono", "monospace"],
+            "headline-sm": ["Space Grotesk", "sans-serif"],
+            "display-income-mobile": ["JetBrains Mono", "monospace"],
+            "headline-lg": ["Space Grotesk", "sans-serif"],
+            "headline-md": ["Space Grotesk", "sans-serif"]
+          },
+          "fontSize": {
+            "label-ui": ["12px", { "lineHeight": "16px", "letterSpacing": "0.04em", "fontWeight": "600" }],
+            "label-data-lg": ["20px", { "lineHeight": "26px", "fontWeight": "600" }],
+            "body-lg": ["16px", { "lineHeight": "24px", "fontWeight": "500" }],
+            "body-sm": ["12px", { "lineHeight": "16px", "fontWeight": "400" }],
+            "body-md": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+            "label-data-md": ["14px", { "lineHeight": "18px", "fontWeight": "500" }],
+            "display-income": ["40px", { "lineHeight": "48px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+            "headline-sm": ["18px", { "lineHeight": "24px", "fontWeight": "600" }],
+            "display-income-mobile": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+            "headline-lg": ["28px", { "lineHeight": "36px", "letterSpacing": "-0.01em", "fontWeight": "700" }],
+            "headline-md": ["22px", { "lineHeight": "28px", "fontWeight": "600" }]
+          }
+        }
+      }
+    };
+  </script>
+</head>
+<body class="h-full bg-surface-bg text-text-display font-body-md select-none overflow-x-hidden antialiased">
+<!-- Main Viewport Shell: Industrial Station Layout (Suppressed Standard Global Nav for Login Destination) -->
+<div class="min-h-full flex flex-col justify-between">
+<!-- Top System Diagnostic Bar -->
+<header class="h-12 bg-surface-card border-b border-border-subtle px-space-lg flex items-center justify-between z-10 shrink-0">
+<div class="flex items-center gap-space-md">
+<div class="flex items-center gap-2">
+<span class="w-2.5 h-2.5 rounded-full bg-status-connected"></span>
+<span class="font-label-ui text-label-ui text-text-display uppercase tracking-wider">工位终端 #03 在线</span>
+</div>
+<span class="text-border-strong font-thin">|</span>
+<span class="font-body-sm text-body-sm text-text-muted">深圳盐田保税分拨中心 · 5号仓分拣线</span>
+</div>
+<div class="flex items-center gap-space-lg">
+<div class="flex items-center gap-1.5 font-label-data-md text-label-data-md text-text-muted">
+<span class="material-symbols-outlined text-[16px] text-text-muted">scale</span>
+<span>顶尖电子秤: COM1[9600-8-N-1] 联机</span>
+</div>
+<div class="flex items-center gap-1.5 font-label-data-md text-label-data-md text-text-muted">
+<span class="material-symbols-outlined text-[16px] text-text-muted">barcode_scanner</span>
+<span>霍尼韦尔扫码枪: USB-HID 就绪</span>
+</div>
+<div class="flex items-center gap-1 px-2 py-0.5 bg-surface-elevated border border-border-subtle rounded text-text-muted font-label-data-md text-label-data-md">
+<span class="material-symbols-outlined text-[14px]">cloud_download</span>
+<span id="live-clock">2026-10-30 08:42:15</span>
+</div>
+</div>
+</header>
+<!-- Main Workspace Content: Dual-Pane Grid Layout -->
+<main class="flex-1 max-w-[1400px] w-full mx-auto p-space-lg flex items-center justify-center">
+<div class="w-full grid grid-cols-12 gap-space-xl items-start">
+<!-- Left Column: Industrial Brand Context & System Integrity Specs -->
+<section class="col-span-12 lg:col-span-5 flex flex-col gap-space-lg">
+<!-- Main Brand Identity Card -->
+<div class="bg-surface-card border border-border-subtle p-space-lg rounded">
+<div class="flex items-center gap-space-md mb-space-md">
+<div class="w-12 h-12 bg-primary flex items-center justify-center rounded text-on-primary">
+<span class="material-symbols-outlined text-[28px]">inventory_2</span>
+</div>
+<div>
+<h1 class="font-headline-lg text-headline-lg text-text-display tracking-tight">速达跨境计件</h1>
+<p class="font-label-ui text-label-ui text-text-muted tracking-wider">包装工作台 v2.4 · 工业级计件终端</p>
+</div>
+</div>
+<p class="font-body-md text-body-md text-text-muted mb-space-lg leading-relaxed">
+              专为跨境物流仓储分拣、打包封箱高频场景定制。支持全离线计件运算、毫秒级扫码录入、双重安全凭证鉴权及工控串口直通。
+            </p>
+<!-- Specification Badges Matrix -->
+<div class="grid grid-cols-2 gap-space-sm pt-space-md border-t border-border-subtle">
+<div class="bg-surface-elevated p-space-sm rounded border border-border-subtle">
+<div class="text-text-muted font-label-ui text-label-ui">数据存储引擎</div>
+<div class="font-label-data-md text-label-data-md text-text-display font-semibold mt-0.5">单机 IndexedDB 隔离</div>
+</div>
+<div class="bg-surface-elevated p-space-sm rounded border border-border-subtle">
+<div class="text-text-muted font-label-ui text-label-ui">算法与保密派生</div>
+<div class="font-label-data-md text-label-data-md text-text-display font-semibold mt-0.5">scrypt KDF 强散列</div>
+</div>
+<div class="bg-surface-elevated p-space-sm rounded border border-border-subtle">
+<div class="text-text-muted font-label-ui text-label-ui">当前打包单价</div>
+<div class="font-label-data-md text-label-data-md text-primary font-semibold mt-0.5">¥ 1.50 / 件</div>
+</div>
+<div class="bg-surface-elevated p-space-sm rounded border border-border-subtle">
+<div class="text-text-muted font-label-ui text-label-ui">网络容灾模式</div>
+<div class="font-label-data-md text-label-data-md text-status-connected font-semibold mt-0.5">无网记工 · 断点补传</div>
+</div>
+</div>
+</div>
+<!-- Production Notice & Shift Guidance (PRD F-014) -->
+<div class="bg-surface-card border border-border-subtle p-space-lg rounded flex flex-col gap-space-sm">
+<div class="flex items-center justify-between">
+<span class="font-label-ui text-label-ui text-text-display flex items-center gap-1.5">
+<span class="material-symbols-outlined text-primary text-[18px]">campaign</span>
+                早班作业调度与安全须知 (PRD v1.0.1)
+              </span>
+<span class="text-text-muted font-label-data-md text-body-sm">2026-10-30</span>
+</div>
+<ul class="font-body-sm text-body-sm text-text-muted space-y-1.5 list-disc list-inside">
+<li>交接班时必须核对“今日累计件数”并在终端执行登出封存。</li>
+<li>密码输错 5 次将激活终端硬件防撞库锁定（持续 15 分钟）。</li>
+<li>单机打包数据每 60 秒自动写盘备份，无需担心断电丢单。</li>
+</ul>
+</div>
+</section>
+<!-- Right Column: Authentication Console Card -->
+<section class="col-span-12 lg:col-span-7">
+<div class="bg-surface-card border border-border-strong rounded p-space-xl">
+<!-- Segmented Mode Switcher (PRD F-014 ~ F-017) -->
+<div class="flex border-b border-border-subtle pb-space-md mb-space-lg items-center justify-between">
+<div class="flex items-center gap-space-sm">
+<button class="px-space-lg py-2.5 bg-primary text-on-primary font-label-ui text-label-ui rounded border border-primary transition-colors flex items-center gap-2" id="tab-login" onclick="switchAuthTab('login')" type="button">
+<span class="material-symbols-outlined text-[18px]">badge</span>
+                  工号 / 账号登录
+                </button>
+<button class="px-space-lg py-2.5 bg-surface-elevated text-text-muted font-label-ui text-label-ui rounded border border-border-subtle hover:text-text-display transition-colors flex items-center gap-2" id="tab-register" onclick="switchAuthTab('register')" type="button">
+<span class="material-symbols-outlined text-[18px]">person_add</span>
+                  快速注册新工号
+                </button>
+</div>
+<div class="hidden sm:flex items-center gap-1.5 text-text-muted font-body-sm text-body-sm">
+<span class="material-symbols-outlined text-[16px]">verified_user</span>
+<span>工位安全鉴权</span>
+</div>
+</div>
+<!-- Inline Error Alert Box (PRD F-015 / 5.9 Mandatory Red Box) -->
+<div class="mb-space-lg bg-[#FEF2F2] border-[1.5px] border-status-error p-space-md rounded flex items-start gap-space-sm" id="auth-alert-box">
+<span class="material-symbols-outlined text-status-error text-[22px] shrink-0 mt-0.5">error</span>
+<div class="flex-1">
+<div class="flex items-center justify-between">
+<span class="font-label-ui text-label-ui text-[#991B1B]">身份鉴权失败 (401)</span>
+<span class="font-label-data-md text-body-sm text-[#991B1B]">重试次数: 1/5</span>
+</div>
+<p class="font-body-md text-body-md text-[#991B1B] mt-1">
+                  用户名或密码不正确。请仔细检查工号及大小写拼写。（为保障工站信息安全，系统不透露具体错误项）
+                </p>
+<div class="mt-2 pt-2 border-t border-red-200 flex items-center gap-1.5 font-label-ui text-body-sm text-[#B91C1C]">
+<span class="material-symbols-outlined text-[16px]">lock_clock</span>
+<span>安全防范提示：连续 5 次错误将锁定该终端 15 分钟，急需开工请联系分拨区长。</span>
+</div>
+</div>
+</div>
+<!-- Authentication Form -->
+<form class="space-y-space-lg" id="auth-form" onsubmit="handleAuthSubmit(event)">
+<!-- User Work ID Field -->
+<div class="space-y-1.5">
+<div class="flex items-center justify-between">
+<label class="font-label-ui text-label-ui text-text-display flex items-center gap-1" for="work-id">
+<span class="material-symbols-outlined text-[16px] text-text-muted">person</span>
+<span>打包员工号 / 用户名</span>
+<span class="text-status-error">*</span>
+</label>
+<span class="font-label-data-md text-body-sm text-text-muted">2-20 位中英文字符或数字代码</span>
+</div>
+<div class="relative">
+<input autocomplete="username" class="w-full h-14 px-space-md bg-surface-card border-2 border-border-strong rounded font-label-data-lg text-label-data-lg text-text-display focus:border-primary focus:outline-none focus:ring-0 transition-colors placeholder:text-outline font-medium" id="work-id" name="work-id" placeholder="例如: PK-9042 或 pack01" required="" type="text" value="PK-9042"/>
+<div class="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none text-text-muted font-label-data-md text-label-data-md">
+                    [Enter] 直达密码
+                  </div>
+</div>
+</div>
+<!-- Password Field -->
+<div class="space-y-1.5">
+<div class="flex items-center justify-between">
+<label class="font-label-ui text-label-ui text-text-display flex items-center gap-1" for="user-password">
+<span class="material-symbols-outlined text-[16px] text-text-muted">key</span>
+<span>工位登录密码</span>
+<span class="text-status-error">*</span>
+</label>
+<div class="hidden items-center gap-1 text-status-warning font-label-ui text-body-sm" id="caps-warning">
+<span class="material-symbols-outlined text-[16px]">keyboard_capslock</span>
+<span>大写锁定 (CapsLock) 已开启</span>
+</div>
+</div>
+<div class="relative">
+<input autocomplete="current-password" class="w-full h-14 px-space-md pr-24 bg-surface-card border-2 border-border-strong rounded font-label-data-lg text-label-data-lg text-text-display focus:border-primary focus:outline-none focus:ring-0 transition-colors placeholder:text-outline font-medium" id="user-password" minlength="6" name="password" placeholder="输入工位授权密码（不少于6位）" required="" type="password"/>
+<!-- Toggle Visibility Button -->
+<button class="absolute inset-y-0 right-0 pr-3.5 flex items-center text-text-muted hover:text-text-display focus:outline-none" id="toggle-pwd-btn" onclick="togglePasswordVisibility()" title="显示/隐藏密码" type="button">
+<span class="material-symbols-outlined text-[20px]" id="toggle-pwd-icon">visibility</span>
+</button>
+</div>
+</div>
+<!-- Confirm Password Field (Register Mode Only, Hidden in Login) -->
+<div class="space-y-1.5 hidden" id="confirm-pwd-group">
+<div class="flex items-center justify-between">
+<label class="font-label-ui text-label-ui text-text-display flex items-center gap-1" for="confirm-password">
+<span class="material-symbols-outlined text-[16px] text-text-muted">lock_reset</span>
+<span>确认登录密码</span>
+<span class="text-status-error">*</span>
+</label>
+<span class="font-label-data-md text-body-sm text-text-muted">再次输入以核验一致性</span>
+</div>
+<input autocomplete="new-password" class="w-full h-14 px-space-md bg-surface-card border-2 border-border-strong rounded font-label-data-lg text-label-data-lg text-text-display focus:border-primary focus:outline-none focus:ring-0 transition-colors placeholder:text-outline font-medium" id="confirm-password" minlength="6" placeholder="请再次确认输入密码" type="password"/>
+</div>
+<!-- Station Environment Remember Options -->
+<div class="flex items-center justify-between pt-1">
+<label class="flex items-center gap-2 cursor-pointer">
+<input checked="" class="w-4 h-4 rounded border-border-strong text-primary focus:ring-0" type="checkbox"/>
+<span class="font-body-md text-body-md text-text-display">在此工控机保持身份（记住工号）</span>
+</label>
+<button class="font-label-ui text-body-sm text-primary hover:underline" onclick="alert('请联系分拨中心IT班长或管理员重置工位密钥。')" type="button">
+                  忘记工号/密码？
+                </button>
+</div>
+<!-- Primary Submit CTA Button (PRD: 56px Industrial Blue Target) -->
+<div class="pt-2">
+<button class="w-full h-14 bg-primary-container hover:bg-[#1E3A8A] active:translate-y-px text-on-primary font-headline-sm text-headline-sm rounded flex items-center justify-center gap-2 transition-all shadow-none" id="submit-auth-btn" type="submit">
+<span class="material-symbols-outlined text-[22px]">login</span>
+<span id="btn-text">登录并进入包装工作台 (Enter)</span>
+</button>
+</div>
+</form>
+<!-- Offline Fallback Station Access (PRD F-018) -->
+<div class="mt-space-lg pt-space-lg border-t border-border-subtle">
+<div class="bg-surface-elevated border border-border-strong rounded p-space-md flex flex-col md:flex-row items-start md:items-center justify-between gap-space-md">
+<div class="flex items-start gap-space-sm">
+<div class="w-8 h-8 rounded bg-surface-card border border-border-subtle flex items-center justify-center text-income-amber-deep shrink-0 mt-0.5">
+<span class="material-symbols-outlined text-[20px]">cloud_off</span>
+</div>
+<div>
+<div class="font-label-ui text-label-ui text-text-display flex items-center gap-2">
+<span>离线保底模式 (PRD F-018)</span>
+<span class="px-1.5 py-0.2 bg-income-amber/20 text-income-amber-deep rounded font-label-data-md text-body-sm font-semibold">强壮可用</span>
+</div>
+<p class="font-body-sm text-body-sm text-text-muted mt-0.5">
+                      所有打包记录完整保存在本机 IndexedDB，断网亦可正常记工算钱，联机后自动补传。
+                    </p>
+</div>
+</div>
+<button class="w-full md:w-auto px-space-lg h-10 bg-surface-card hover:bg-surface-container-low border border-border-strong text-text-display font-label-ui text-label-ui rounded whitespace-nowrap active:translate-y-px transition-all flex items-center justify-center gap-1.5" onclick="enterOfflineMode()" type="button">
+<span class="material-symbols-outlined text-[18px]">play_circle</span>
+<span>以离线模式直接进入 (免登录)</span>
+</button>
+</div>
+</div>
+<!-- Server Connection Panel (PRD F-019 / 5.11 Advanced Settings) -->
+<div class="mt-space-md">
+<button class="w-full flex items-center justify-between py-2 text-text-muted hover:text-text-display font-label-ui text-body-sm focus:outline-none" onclick="toggleServerConfig()" type="button">
+<span class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[16px]">settings_ethernet</span>
+<span>高级设置：局域网服务端与心跳通道配置 (PRD F-019)</span>
+</span>
+<span class="material-symbols-outlined text-[18px] transition-transform" id="server-chevron">expand_more</span>
+</button>
+<div class="hidden mt-2 p-space-md bg-surface-elevated border border-border-subtle rounded space-y-space-md" id="server-config-drawer">
+<div class="flex flex-col sm:flex-row gap-space-sm">
+<div class="flex-1">
+<label class="font-label-ui text-body-sm text-text-muted block mb-1">API 服务端基准地址 (Default Endpoint)</label>
+<input class="w-full h-10 px-space-sm bg-surface-card border border-border-strong rounded font-label-data-md text-label-data-md text-text-display focus:border-primary focus:outline-none" id="api-endpoint" type="text" value="http://localhost:5173"/>
+</div>
+<div class="flex items-end gap-2">
+<button class="h-10 px- space-md px-3 bg-surface-card hover:bg-surface-elevated border border-border-strong font-label-ui text-label-ui rounded flex items-center gap-1 text-text-display" onclick="testConnection()" type="button">
+<span class="material-symbols-outlined text-[16px]">sync</span>
+                      测试并连接
+                    </button>
+<button class="h-10 px-3 bg-surface-card hover:bg-surface-elevated border border-border-strong font-label-ui text-label-ui rounded text-text-muted" onclick="resetDefaultEndpoint()" type="button">
+                      恢复默认
+                    </button>
+</div>
+</div>
+<div class="flex flex-col sm:flex-row sm:items-center justify-between pt-2 border-t border-border-subtle gap-2">
+<div class="flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-status-connected"></span>
+<span class="font-label-data-md text-body-sm text-text-display font-medium">局域网专网已连接 · 心跳响应 18ms (极佳)</span>
+</div>
+<button class="font-label-ui text-body-sm text-primary hover:underline flex items-center gap-1 self-start sm:self-auto" onclick="openLocalHost()" type="button">
+<span class="material-symbols-outlined text-[14px]">open_in_new</span>
+                    解除本地文件拦截 / 在本地服务打开
+                  </button>
+</div>
+</div>
+</div>
+</div>
+</section>
+</div>
+</main>
+<!-- Industrial Bottom Status Bar (Station Hardware & Environmental Integrity) -->
+<footer class="h-11 bg-surface-card border-t border-border-subtle px-space-lg flex items-center justify-between text-text-muted font-body-sm text-body-sm shrink-0">
+<div class="flex items-center gap-space-lg">
+<span class="flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px] text-text-muted">desktop_windows</span>
+<span>工控终端: WIN10-IOT-PACK03</span>
+</span>
+<span class="text-border-strong font-thin">|</span>
+<span class="flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px] text-status-connected">cable</span>
+<span>RS232/USB 设备链: 正常 (3 Devices Active)</span>
+</span>
+<span class="text-border-strong font-thin hidden md:inline">|</span>
+<span class="hidden md:flex items-center gap-1 font-label-data-md text-body-sm">
+<span>PWA Local Engine: v2.4.0 (Build 20261030)</span>
+</span>
+</div>
+<div class="flex items-center gap-space-md">
+<span class="flex items-center gap-1 text-income-amber-deep">
+<span class="material-symbols-outlined text-[16px]">lock</span>
+<span>本地数据加密落盘: ON</span>
+</span>
+<span class="text-border-strong font-thin">|</span>
+<span class="font-label-data-md text-body-sm">速达智能科技 (深圳)</span>
+</div>
+</footer>
+</div>
+<!-- Micro-Interactions & Industrial Hardware Form Logic -->
+<script>
+    // Live Clock Display
+    function updateClock() {
+      const now = new Date();
+      const pad = (n) => String(n).padStart(2, '0');
+      const timeStr = `${now.getFullYear()}-${pad(now.getMonth()+1)}-${pad(now.getDate())} ${pad(now.getHours())}:${pad(now.getMinutes())}:${pad(now.getSeconds())}`;
+      const el = document.getElementById('live-clock');
+      if (el) el.textContent = timeStr;
+    }
+    setInterval(updateClock, 1000);
+    updateClock();
+
+    // Tab Switching Logic (Login vs Quick Register)
+    let currentAuthMode = 'login';
+    function switchAuthTab(mode) {
+      currentAuthMode = mode;
+      const tabLogin = document.getElementById('tab-login');
+      const tabRegister = document.getElementById('tab-register');
+      const confirmGroup = document.getElementById('confirm-pwd-group');
+      const btnText = document.getElementById('btn-text');
+      const alertBox = document.getElementById('auth-alert-box');
+
+      if (mode === 'login') {
+        tabLogin.className = "px-space-lg py-2.5 bg-primary text-on-primary font-label-ui text-label-ui rounded border border-primary transition-colors flex items-center gap-2";
+        tabRegister.className = "px-space-lg py-2.5 bg-surface-elevated text-text-muted font-label-ui text-label-ui rounded border border-border-subtle hover:text-text-display transition-colors flex items-center gap-2";
+        confirmGroup.classList.add('hidden');
+        btnText.textContent = "登录并进入包装工作台 (Enter)";
+        alertBox.classList.remove('hidden'); // Show demo 401 alert in login mode
+      } else {
+        tabRegister.className = "px-space-lg py-2.5 bg-primary text-on-primary font-label-ui text-label-ui rounded border border-primary transition-colors flex items-center gap-2";
+        tabLogin.className = "px-space-lg py-2.5 bg-surface-elevated text-text-muted font-label-ui text-label-ui rounded border border-border-subtle hover:text-text-display transition-colors flex items-center gap-2";
+        confirmGroup.classList.remove('hidden');
+        btnText.textContent = "创建新打包员工号并开工 (Enter)";
+        alertBox.classList.add('hidden');
+      }
+    }
+
+    // Toggle Password Visibility
+    function togglePasswordVisibility() {
+      const pwdInput = document.getElementById('user-password');
+      const icon = document.getElementById('toggle-pwd-icon');
+      if (pwdInput.type === 'password') {
+        pwdInput.type = 'text';
+        icon.textContent = 'visibility_off';
+      } else {
+        pwdInput.type = 'password';
+        icon.textContent = 'visibility';
+      }
+    }
+
+    // CapsLock Detection
+    const pwdField = document.getElementById('user-password');
+    const capsWarning = document.getElementById('caps-warning');
+    if (pwdField && capsWarning) {
+      pwdField.addEventListener('keyup', function(e) {
+        if (e.getModifierState && e.getModifierState('CapsLock')) {
+          capsWarning.classList.remove('hidden');
+          capsWarning.classList.add('flex');
+        } else {
+          capsWarning.classList.add('hidden');
+          capsWarning.classList.remove('flex');
+        }
+      });
+    }
+
+    // Advanced Server Drawer Toggle
+    function toggleServerConfig() {
+      const drawer = document.getElementById('server-config-drawer');
+      const chevron = document.getElementById('server-chevron');
+      if (drawer.classList.contains('hidden')) {
+        drawer.classList.remove('hidden');
+        chevron.style.transform = 'rotate(180deg)';
+      } else {
+        drawer.classList.add('hidden');
+        chevron.style.transform = 'rotate(0deg)';
+      }
+    }
+
+    function resetDefaultEndpoint() {
+      document.getElementById('api-endpoint').value = 'http://localhost:5173';
+    }
+
+    function testConnection() {
+      const btn = event.currentTarget;
+      const originalText = btn.innerHTML;
+      btn.innerHTML = `<span class="material-symbols-outlined text-[16px] animate-spin">refresh</span> 检测中...`;
+      setTimeout(() => {
+        btn.innerHTML = originalText;
+        alert('局域网基准地址响应成功！延迟: 18ms，scrypt鉴权握手正常。');
+      }, 600);
+    }
+
+    function openLocalHost() {
+      window.open('http://localhost:5173', '_blank');
+    }
+
+    // Direct Offline Mode Entry (PRD F-018)
+    function enterOfflineMode() {
+      const confirmed = confirm("确认以离线临时工号 [OFFLINE-TEMP-03] 启动计件台？数据将保存在当前浏览器 IndexedDB。");
+      if (confirmed) {
+        alert("正在激活离线计件数据库... 准备就绪，欢迎进入工作台！");
+      }
+    }
+
+    // Form Submit Handler
+    function handleAuthSubmit(e) {
+      e.preventDefault();
+      const workId = document.getElementById('work-id').value.trim();
+      const pwd = document.getElementById('user-password').value;
+
+      if (!workId || !pwd) {
+        alert('请补全工号及密码！');
+        return;
+      }
+
+      const submitBtn = document.getElementById('submit-auth-btn');
+      submitBtn.disabled = true;
+      submitBtn.classList.add('opacity-80');
+      submitBtn.innerHTML = `<span class="material-symbols-outlined text-[20px] animate-spin">sync</span> 正在执行 scrypt 派生校验...`;
+
+      setTimeout(() => {
+        submitBtn.disabled = false;
+        submitBtn.classList.remove('opacity-80');
+        submitBtn.innerHTML = `<span class="material-symbols-outlined text-[22px]">login</span> <span>${currentAuthMode === 'login' ? '登录并进入包装工作台 (Enter)' : '创建新打包员工号并开工 (Enter)'}</span>`;
+        
+        // Demo feedback
+        alert(`工位 03 身份校验通过！欢迎工号 [${workId}]，正在载入今日录入台...`);
+      }, 800);
+    }
+  </script>
+</body></html>

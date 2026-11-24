@@ -1,0 +1,760 @@
+<!DOCTYPE html>
+
+<html lang="zh-CN"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>速达跨境计件 - 效能分析与统计大屏</title>
+<!-- Google Fonts: Inter, Space Grotesk, JetBrains Mono -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@400;500;600;700&amp;family=Space+Grotesk:wght@600;700&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols Outlined -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS v3 -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+            "status-error": "#EF4444",
+            "border-strong": "#CBD5E1",
+            "tertiary-container": "#743d00",
+            "error": "#ba1a1a",
+            "on-secondary-container": "#fefcff",
+            "on-tertiary-fixed": "#2f1500",
+            "primary-fixed": "#dde1ff",
+            "tertiary": "#532a00",
+            "on-primary": "#ffffff",
+            "income-amber-deep": "#B45309",
+            "surface-container": "#e5eeff",
+            "inverse-primary": "#b8c4ff",
+            "on-secondary-fixed": "#00174b",
+            "inverse-surface": "#213145",
+            "surface-dim": "#cbdbf5",
+            "on-background": "#0b1c30",
+            "on-primary-fixed-variant": "#173bab",
+            "surface-bright": "#f8f9ff",
+            "primary-fixed-dim": "#b8c4ff",
+            "surface-tint": "#3755c3",
+            "status-connected": "#10B981",
+            "surface-container-lowest": "#ffffff",
+            "surface-card": "#FFFFFF",
+            "border-subtle": "#E2E8F0",
+            "on-tertiary-container": "#ffa85d",
+            "inverse-on-surface": "#eaf1ff",
+            "secondary-container": "#316bf3",
+            "tertiary-fixed": "#ffdcc3",
+            "surface-bg": "#F8FAFC",
+            "surface-container-highest": "#d3e4fe",
+            "status-warning": "#F59E0B",
+            "surface-container-low": "#eff4ff",
+            "on-surface": "#0b1c30",
+            "outline-variant": "#c4c5d5",
+            "primary": "#00288e",
+            "secondary": "#0051d5",
+            "background": "#f8f9ff",
+            "primary-container": "#1e40af",
+            "surface": "#f8f9ff",
+            "income-amber": "#F59E0B",
+            "on-tertiary": "#ffffff",
+            "on-secondary": "#ffffff",
+            "surface-elevated": "#F1F5F9",
+            "error-container": "#ffdad6",
+            "on-primary-container": "#a8b8ff",
+            "text-muted": "#64748B",
+            "secondary-fixed-dim": "#b4c5ff",
+            "surface-variant": "#d3e4fe",
+            "on-primary-fixed": "#001453",
+            "on-error-container": "#93000a",
+            "text-display": "#0F172A",
+            "surface-container-high": "#dce9ff",
+            "on-secondary-fixed-variant": "#003ea8",
+            "outline": "#757684",
+            "on-tertiary-fixed-variant": "#6e3900",
+            "on-error": "#ffffff",
+            "secondary-fixed": "#dbe1ff",
+            "tertiary-fixed-dim": "#ffb77d"
+          },
+          "borderRadius": {
+            "DEFAULT": "0.125rem",
+            "lg": "0.25rem",
+            "xl": "0.5rem",
+            "full": "0.75rem"
+          },
+          "spacing": {
+            "gutter": "1rem",
+            "space-xl": "2rem",
+            "space-sm": "0.5rem",
+            "margin": "1rem",
+            "space-lg": "1.25rem",
+            "gutter-desktop": "1.5rem",
+            "margin-desktop": "2rem",
+            "space-md": "0.75rem",
+            "space-xs": "0.25rem"
+          },
+          "fontFamily": {
+            "body-lg": ["Inter"],
+            "headline-sm": ["Space Grotesk"],
+            "headline-md": ["Space Grotesk"],
+            "label-ui": ["Inter"],
+            "display-income-mobile": ["JetBrains Mono"],
+            "body-md": ["Inter"],
+            "body-sm": ["Inter"],
+            "display-income": ["JetBrains Mono"],
+            "label-data-md": ["JetBrains Mono"],
+            "headline-lg": ["Space Grotesk"],
+            "label-data-lg": ["JetBrains Mono"]
+          },
+          "fontSize": {
+            "body-lg": ["16px", { "lineHeight": "24px", "fontWeight": "500" }],
+            "headline-sm": ["18px", { "lineHeight": "24px", "fontWeight": "600" }],
+            "headline-md": ["22px", { "lineHeight": "28px", "fontWeight": "600" }],
+            "label-ui": ["12px", { "lineHeight": "16px", "letterSpacing": "0.04em", "fontWeight": "600" }],
+            "display-income-mobile": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+            "body-md": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+            "body-sm": ["12px", { "lineHeight": "16px", "fontWeight": "400" }],
+            "display-income": ["40px", { "lineHeight": "48px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+            "label-data-md": ["14px", { "lineHeight": "18px", "fontWeight": "500" }],
+            "headline-lg": ["28px", { "lineHeight": "36px", "letterSpacing": "-0.01em", "fontWeight": "700" }],
+            "label-data-lg": ["20px", { "lineHeight": "26px", "fontWeight": "600" }]
+          }
+        }
+      }
+    }
+  </script>
+<style>
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+      display: inline-block;
+      vertical-align: middle;
+      line-height: 1;
+    }
+    .custom-scrollbar::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    .custom-scrollbar::-webkit-scrollbar-thumb {
+      background: #CBD5E1;
+      border-radius: 3px;
+    }
+    .custom-scrollbar::-webkit-scrollbar-track {
+      background: #F8FAFC;
+    }
+  </style>
+</head>
+<body class="bg-surface-bg text-text-display min-h-screen flex antialiased select-none">
+<!-- ==================== SIDE NAV BAR (FROM JSON SPEC) ==================== -->
+<aside class="fixed top-0 left-0 h-screen w-64 flex flex-col justify-between bg-surface-card border-r border-border-subtle z-30">
+<div class="flex flex-col">
+<!-- SideNav Header -->
+<div class="p-space-md border-b border-border-subtle flex items-center gap-space-sm bg-surface-card">
+<div class="w-10 h-10 rounded bg-primary flex items-center justify-center text-on-primary">
+<span class="material-symbols-outlined text-2xl" data-icon="inventory_2">inventory_2</span>
+</div>
+<div class="flex flex-col">
+<span class="text-headline-sm font-headline-sm text-text-display uppercase tracking-tight">速达跨境计件</span>
+<span class="text-body-sm font-body-sm text-text-muted">包装工作台 v2.4</span>
+</div>
+</div>
+<!-- Navigation Links: 统计看板 ACTIVE -->
+<nav class="flex flex-col py-space-sm gap-1">
+<!-- 1. 今日录入 -->
+<a class="flex items-center gap-space-sm px-space-md py-space-sm text-text-muted font-label-ui text-label-ui hover:bg-surface-elevated transition-colors duration-150 active:translate-y-px" href="#">
+<span class="material-symbols-outlined text-xl" data-icon="inventory_2">inventory_2</span>
+<span>今日录入</span>
+</a>
+<!-- 2. 历史明细 -->
+<a class="flex items-center gap-space-sm px-space-md py-space-sm text-text-muted font-label-ui text-label-ui hover:bg-surface-elevated transition-colors duration-150 active:translate-y-px" href="#">
+<span class="material-symbols-outlined text-xl" data-icon="history">history</span>
+<span>历史明细</span>
+</a>
+<!-- 3. 统计看板 (ACTIVE MAPPED) -->
+<a class="flex items-center gap-space-sm px-space-md py-space-sm bg-surface-container-low border-l-4 border-primary text-primary font-label-ui text-label-ui active:translate-y-px" href="#">
+<span class="material-symbols-outlined text-xl" data-icon="analytics" data-weight="fill" style="font-variation-settings: 'FILL' 1;">analytics</span>
+<span>统计看板</span>
+</a>
+<!-- 4. 系统设置 -->
+<a class="flex items-center gap-space-sm px-space-md py-space-sm text-text-muted font-label-ui text-label-ui hover:bg-surface-elevated transition-colors duration-150 active:translate-y-px" href="#">
+<span class="material-symbols-outlined text-xl" data-icon="settings">settings</span>
+<span>系统设置</span>
+</a>
+</nav>
+</div>
+<!-- SideNav Footer Info (From JSON) -->
+<div class="p-space-md border-t border-border-subtle bg-surface-card flex flex-col gap-space-sm">
+<div class="flex items-center justify-between text-body-sm font-body-sm text-text-muted">
+<span class="flex items-center gap-1">
+<span class="material-symbols-outlined text-base" data-icon="badge">badge</span>
+          工号: PK-9042
+        </span>
+<span class="px-1.5 py-0.5 rounded bg-surface-container-high text-primary text-body-sm font-label-ui">高级包装师</span>
+</div>
+<div class="flex items-center justify-between text-body-sm font-body-sm">
+<span class="flex items-center gap-1.5 text-text-muted">
+<span class="w-2 h-2 rounded-full bg-status-connected"></span>
+          服务状态: 已连接
+        </span>
+<span class="text-label-data-md font-label-data-md text-text-muted">ping: 18ms</span>
+</div>
+</div>
+</aside>
+<!-- ==================== TOP NAV BAR (FROM JSON SPEC & PROMPT) ==================== -->
+<header class="fixed top-0 left-64 right-0 h-16 flex items-center bg-surface-card border-b border-border-subtle z-20">
+<div class="flex justify-between items-center w-full px-space-lg h-full">
+<!-- Breadcrumb & Workspace Identifier -->
+<div class="flex items-center gap-space-md">
+<div class="flex items-center gap-2">
+<span class="text-body-md font-body-md text-text-muted">经营分析</span>
+<span class="text-text-muted font-body-sm">/</span>
+<h1 class="text-headline-sm font-headline-sm text-text-display">月度效能与对账看板</h1>
+</div>
+<div class="h-4 w-px bg-border-strong mx-1"></div>
+<span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded bg-surface-container-low text-primary text-body-sm font-body-sm border border-border-subtle">
+<span class="material-symbols-outlined text-sm" data-icon="schedule">schedule</span>
+          计件周期: 2026年10月度
+        </span>
+</div>
+<!-- Controls & Actions -->
+<div class="flex items-center gap-space-md">
+<!-- Time Range Selector -->
+<div class="inline-flex rounded border border-border-strong p-0.5 bg-surface-elevated text-body-sm font-label-ui">
+<button class="px-3 py-1 text-text-muted hover:text-text-display transition-colors">近7天</button>
+<button class="px-3 py-1 text-text-muted hover:text-text-display transition-colors">近30天</button>
+<button class="px-3 py-1 rounded bg-surface-card text-primary font-semibold border border-border-subtle">2026年10月全月</button>
+</div>
+<div class="h-5 w-px bg-border-strong"></div>
+<!-- Trailing Secondary: 工长签名确认 -->
+<button class="h-9 px-3.5 flex items-center gap-1.5 rounded bg-surface-card border border-border-strong text-text-display hover:bg-surface-elevated active:translate-y-px transition-all text-body-sm font-label-ui" id="foreman-sign-btn">
+<span class="material-symbols-outlined text-lg" data-icon="draw">draw</span>
+<span>工长签名确认</span>
+</button>
+<!-- Trailing Primary Action: 导出月度对账单 -->
+<button class="h-9 px-4 flex items-center gap-1.5 rounded bg-primary-container text-on-primary hover:bg-primary active:translate-y-px transition-all text-body-sm font-label-ui">
+<span class="material-symbols-outlined text-lg" data-icon="download">download</span>
+<span>导出月度对账单</span>
+</button>
+<!-- Trailing Utility Icons -->
+<div class="flex items-center gap-1 pl-2 border-l border-border-subtle text-text-muted">
+<button class="w-8 h-8 rounded hover:bg-surface-elevated flex items-center justify-center transition-colors" title="同步数据">
+<span class="material-symbols-outlined text-lg" data-icon="sync">sync</span>
+</button>
+<button class="w-8 h-8 rounded hover:bg-surface-elevated flex items-center justify-center transition-colors text-status-connected" title="无线网络正常">
+<span class="material-symbols-outlined text-lg" data-icon="wifi">wifi</span>
+</button>
+</div>
+</div>
+</div>
+</header>
+<!-- ==================== MAIN CONTENT AREA (PC DESKTOP DASHBOARD) ==================== -->
+<main class="ml-64 mt-16 flex-1 p-space-lg custom-scrollbar overflow-y-auto space-y-space-lg pb-12">
+<!-- Inline Status Verification Banner (Zero Modal Policy) -->
+<div class="flex items-center justify-between p-space-md rounded bg-surface-card border border-border-subtle">
+<div class="flex items-center gap-space-md">
+<div class="flex items-center justify-center w-8 h-8 rounded bg-surface-container-low text-primary">
+<span class="material-symbols-outlined" data-icon="verified">verified</span>
+</div>
+<div>
+<div class="flex items-center gap-2">
+<span class="text-body-md font-headline-sm text-text-display">结算核准状态：车间流水已同步至金蝶ERP财务系统</span>
+<span class="px-2 py-0.5 rounded text-body-sm font-label-ui bg-surface-container-high text-primary">核准预审通过</span>
+</div>
+<p class="text-body-sm font-body-sm text-text-muted">
+            对应打单工位: <span class="font-label-data-md text-text-display">工位03 (深圳盐田保税仓出口分拨中心)</span> ｜ 计件费率基准: ¥1.50/件 ｜ 异常拦截复核: 0起
+          </p>
+</div>
+</div>
+<div class="flex items-center gap-3">
+<div class="flex items-center gap-1.5 text-body-sm font-label-ui text-text-muted">
+<span class="w-2 h-2 rounded-full bg-status-connected"></span>
+<span>工位打标器在线</span>
+</div>
+<span class="text-body-sm font-label-data-md text-text-muted">最后对账时间 2026-10-31 23:59:58</span>
+</div>
+</div>
+<!-- 1. TOP OVERVIEW KPI CARDS (4 COLUMNS BENTO) -->
+<div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-space-lg">
+<!-- Card 1: 月累计打包量 -->
+<div class="p-space-lg rounded bg-surface-card border border-border-subtle flex flex-col justify-between">
+<div class="flex items-center justify-between">
+<span class="text-body-md font-body-md text-text-muted">月累计打包量</span>
+<span class="p-1.5 rounded bg-surface-container-low text-primary">
+<span class="material-symbols-outlined text-lg" data-icon="inventory_2">inventory_2</span>
+</span>
+</div>
+<div class="mt-space-md flex items-baseline gap-2">
+<span class="text-display-income font-display-income text-text-display">4,320</span>
+<span class="text-body-lg font-body-lg text-text-muted">件</span>
+</div>
+<div class="mt-space-md pt-space-sm border-t border-border-subtle flex items-center justify-between text-body-sm">
+<span class="flex items-center text-status-connected font-label-data-md font-semibold">
+<span class="material-symbols-outlined text-base">arrow_drop_up</span>
+            同比 +12.4%
+          </span>
+<span class="text-text-muted">目标达成率 <span class="font-label-data-md text-text-display font-semibold">108.0%</span></span>
+</div>
+</div>
+<!-- Card 2: 月累计计件总收入 -->
+<div class="p-space-lg rounded bg-surface-card border border-border-subtle flex flex-col justify-between">
+<div class="flex items-center justify-between">
+<span class="text-body-md font-body-md text-text-muted">月累计计件总收入</span>
+<span class="p-1.5 rounded bg-amber-50 text-income-amber-deep">
+<span class="material-symbols-outlined text-lg" data-icon="payments">payments</span>
+</span>
+</div>
+<div class="mt-space-md flex items-baseline gap-1">
+<span class="text-headline-md font-display-income text-income-amber-deep">¥</span>
+<span class="text-display-income font-display-income text-income-amber-deep">6,480.00</span>
+<span class="text-body-md font-body-md text-text-muted ml-1">元</span>
+</div>
+<div class="mt-space-md pt-space-sm border-t border-border-subtle flex items-center justify-between text-body-sm">
+<span class="text-text-muted">单价: <span class="font-label-data-md text-text-display">¥1.50</span> /件</span>
+<span class="px-2 py-0.5 rounded text-body-sm font-label-ui bg-amber-50 text-income-amber-deep border border-amber-200">财务待核准</span>
+</div>
+</div>
+<!-- Card 3: 出勤与工时 -->
+<div class="p-space-lg rounded bg-surface-card border border-border-subtle flex flex-col justify-between">
+<div class="flex items-center justify-between">
+<span class="text-body-md font-body-md text-text-muted">出勤与工时排班</span>
+<span class="p-1.5 rounded bg-surface-container-low text-primary">
+<span class="material-symbols-outlined text-lg" data-icon="calendar_month">calendar_month</span>
+</span>
+</div>
+<div class="mt-space-md flex items-baseline gap-2">
+<span class="text-display-income font-display-income text-text-display">24</span>
+<span class="text-body-md font-body-md text-text-muted">工作日 /</span>
+<span class="text-headline-md font-display-income text-text-muted">7</span>
+<span class="text-body-md font-body-md text-text-muted">休息日</span>
+</div>
+<div class="mt-space-md pt-space-sm border-t border-border-subtle flex items-center justify-between text-body-sm">
+<span class="flex items-center gap-1 text-status-connected font-label-ui">
+<span class="material-symbols-outlined text-sm">check_circle</span>
+            全勤考勤达标
+          </span>
+<span class="text-text-muted">有效工时 <span class="font-label-data-md text-text-display">192.0</span> h</span>
+</div>
+</div>
+<!-- Card 4: 日均生产效能 -->
+<div class="p-space-lg rounded bg-surface-card border border-border-subtle flex flex-col justify-between">
+<div class="flex items-center justify-between">
+<span class="text-body-md font-body-md text-text-muted">日均生产效能 (基准)</span>
+<span class="p-1.5 rounded bg-surface-container-low text-primary">
+<span class="material-symbols-outlined text-lg" data-icon="speed">speed</span>
+</span>
+</div>
+<div class="mt-space-md flex items-baseline gap-2">
+<span class="text-display-income font-display-income text-text-display">180</span>
+<span class="text-body-lg font-body-lg text-text-muted">件/日</span>
+</div>
+<div class="mt-space-md pt-space-sm border-t border-border-subtle flex items-center justify-between text-body-sm">
+<span class="text-text-muted">日均计件收益:</span>
+<span class="font-label-data-md font-bold text-income-amber-deep">¥270.00 /日</span>
+</div>
+</div>
+</div>
+<!-- 2. MIDDLE ANALYTICS SECTION (2 COLUMNS: WIDE CHART + BADGE/RADAR CARD) -->
+<div class="grid grid-cols-1 xl:grid-cols-12 gap-space-lg items-start">
+<!-- LEFT WIDE COLUMN (8 cols): Daily Trend Histogram / Bar Chart -->
+<div class="xl:col-span-8 p-space-lg rounded bg-surface-card border border-border-subtle">
+<div class="flex flex-wrap items-center justify-between gap-space-sm pb-space-md border-b border-border-subtle">
+<div>
+<div class="flex items-center gap-2">
+<h2 class="text-headline-sm font-headline-sm text-text-display">近30天每日打包件数走势与波动对比</h2>
+<span class="px-2 py-0.5 rounded text-body-sm font-label-ui bg-surface-container-low text-primary">10月度生产日志</span>
+</div>
+<p class="text-body-sm font-body-sm text-text-muted mt-0.5">每日作业量采集自流水线工业条码枪终端扫描流水 (共31日明细)</p>
+</div>
+<div class="flex items-center gap-4 text-body-sm font-label-ui">
+<div class="flex items-center gap-1.5">
+<span class="w-3 h-3 rounded-sm bg-primary"></span>
+<span class="text-text-muted">常规出勤日</span>
+</div>
+<div class="flex items-center gap-1.5">
+<span class="w-3 h-3 rounded-sm bg-income-amber border border-amber-600"></span>
+<span class="text-text-display font-semibold">金牌产出日 (10.18)</span>
+</div>
+<div class="flex items-center gap-1.5">
+<span class="w-4 h-0 border-t-2 border-dashed border-status-error"></span>
+<span class="text-text-muted">日均标线 (180件)</span>
+</div>
+</div>
+</div>
+<!-- Custom SVG / HTML High-Contrast Histogram Visualization -->
+<div class="mt-space-lg relative">
+<!-- Benchmark Dotted Line (180件) -->
+<div class="absolute left-10 right-4 top-[48%] border-t-2 border-dashed border-status-error z-10 pointer-events-none flex justify-end">
+<span class="bg-surface-card text-status-error text-body-sm font-label-data-md font-bold px-1.5 -mt-3 border border-status-error/30 rounded">
+              日均基准线: 180 件
+            </span>
+</div>
+<!-- Y-Axis labels and chart container -->
+<div class="h-64 flex items-end gap-1.5 pl-10 pr-4 pb-6 pt-6 border-b border-border-strong relative">
+<!-- Y-Axis Ticks -->
+<div class="absolute left-0 top-0 bottom-6 flex flex-col justify-between text-body-sm font-label-data-md text-text-muted text-right w-8">
+<span>380</span>
+<span>280</span>
+<span class="text-status-error font-bold">180</span>
+<span>100</span>
+<span>0</span>
+</div>
+<!-- Grid background lines -->
+<div class="absolute left-10 right-4 top-6 border-t border-border-subtle pointer-events-none"></div>
+<div class="absolute left-10 right-4 top-[25%] border-t border-border-subtle pointer-events-none"></div>
+<div class="absolute left-10 right-4 top-[73%] border-t border-border-subtle pointer-events-none"></div>
+<!-- Daily Bars: 30 Days Sample Distribution (Scaled max 380) -->
+<!-- 10.01 - 10.05 -->
+<div class="flex-1 flex flex-col items-center h-full justify-end group cursor-pointer">
+<div class="w-full bg-surface-container-high hover:bg-primary transition-all rounded-t-sm" style="height: 42%;" title="10-01: 160件"></div>
+</div>
+<div class="flex-1 flex flex-col items-center h-full justify-end group cursor-pointer">
+<div class="w-full bg-primary hover:opacity-80 transition-all rounded-t-sm" style="height: 50%;" title="10-02: 190件"></div>
+</div>
+<div class="flex-1 flex flex-col items-center h-full justify-end group cursor-pointer">
+<div class="w-full bg-primary hover:opacity-80 transition-all rounded-t-sm" style="height: 48%;" title="10-03: 182件"></div>
+</div>
+<div class="flex-1 flex flex-col items-center h-full justify-end group cursor-pointer">
+<div class="w-full bg-border-strong rounded-t-sm" style="height: 4%;" title="10-04 (休): 0件"></div>
+</div>
+<div class="flex-1 flex flex-col items-center h-full justify-end group cursor-pointer">
+<div class="w-full bg-primary hover:opacity-80 transition-all rounded-t-sm" style="height: 46%;" title="10-05: 175件"></div>
+</div>
+<!-- 10.06 - 10.10 -->
+<div class="flex-1 flex flex-col items-center h-full justify-end group cursor-pointer">
+<div class="w-full bg-primary hover:opacity-80 transition-all rounded-t-sm" style="height: 52%;" title="10-06: 198件"></div>
+</div>
+<div class="flex-1 flex flex-col items-center h-full justify-end group cursor-pointer">
+<div class="w-full bg-primary hover:opacity-80 transition-all rounded-t-sm" style="height: 55%;" title="10-07: 210件"></div>
+</div>
+<div class="flex-1 flex flex-col items-center h-full justify-end group cursor-pointer">
+<div class="w-full bg-primary hover:opacity-80 transition-all rounded-t-sm" style="height: 47%;" title="10-08: 178件"></div>
+</div>
+<div class="flex-1 flex flex-col items-center h-full justify-end group cursor-pointer">
+<div class="w-full bg-primary hover:opacity-80 transition-all rounded-t-sm" style="height: 51%;" title="10-09: 194件"></div>
+</div>
+<div class="flex-1 flex flex-col items-center h-full justify-end group cursor-pointer">
+<div class="w-full bg-primary hover:opacity-80 transition-all rounded-t-sm" style="height: 44%;" title="10-10: 168件"></div>
+</div>
+<!-- 10.11 - 10.15 -->
+<div class="flex-1 flex flex-col items-center h-full justify-end group cursor-pointer">
+<div class="w-full bg-border-strong rounded-t-sm" style="height: 4%;" title="10-11 (休): 0件"></div>
+</div>
+<div class="flex-1 flex flex-col items-center h-full justify-end group cursor-pointer">
+<div class="w-full bg-primary hover:opacity-80 transition-all rounded-t-sm" style="height: 56%;" title="10-12: 215件"></div>
+</div>
+<div class="flex-1 flex flex-col items-center h-full justify-end group cursor-pointer">
+<div class="w-full bg-primary hover:opacity-80 transition-all rounded-t-sm" style="height: 58%;" title="10-13: 220件"></div>
+</div>
+<div class="flex-1 flex flex-col items-center h-full justify-end group cursor-pointer">
+<div class="w-full bg-primary hover:opacity-80 transition-all rounded-t-sm" style="height: 53%;" title="10-14: 202件"></div>
+</div>
+<div class="flex-1 flex flex-col items-center h-full justify-end group cursor-pointer">
+<div class="w-full bg-primary hover:opacity-80 transition-all rounded-t-sm" style="height: 60%;" title="10-15: 230件"></div>
+</div>
+<!-- 10.16 - 10.20 (Peak Window with Oct 18) -->
+<div class="flex-1 flex flex-col items-center h-full justify-end group cursor-pointer">
+<div class="w-full bg-primary hover:opacity-80 transition-all rounded-t-sm" style="height: 64%;" title="10-16: 245件"></div>
+</div>
+<div class="flex-1 flex flex-col items-center h-full justify-end group cursor-pointer">
+<div class="w-full bg-secondary-container hover:opacity-80 transition-all rounded-t-sm" style="height: 75%;" title="10-17: 285件"></div>
+</div>
+<!-- HIGHLIGHTED: 10月18日 金牌产出日 360件 -->
+<div class="flex-1 flex flex-col items-center h-full justify-end relative group cursor-pointer">
+<!-- Floating Tooltip Marker -->
+<div class="absolute -top-12 flex flex-col items-center z-20">
+<span class="px-2 py-0.5 rounded bg-income-amber-deep text-on-primary text-body-sm font-label-data-md font-bold shadow-sm whitespace-nowrap">
+                  360件 / ¥540
+                </span>
+<span class="w-2 h-2 bg-income-amber-deep rotate-45 -mt-1"></span>
+</div>
+<div class="w-full bg-income-amber border-2 border-income-amber-deep rounded-t-sm relative transition-transform hover:scale-105" style="height: 95%;">
+<div class="absolute inset-0 bg-white/20 animate-pulse"></div>
+</div>
+</div>
+<div class="flex-1 flex flex-col items-center h-full justify-end group cursor-pointer">
+<div class="w-full bg-secondary-container hover:opacity-80 transition-all rounded-t-sm" style="height: 70%;" title="10-19: 266件"></div>
+</div>
+<div class="flex-1 flex flex-col items-center h-full justify-end group cursor-pointer">
+<div class="w-full bg-primary hover:opacity-80 transition-all rounded-t-sm" style="height: 52%;" title="10-20: 198件"></div>
+</div>
+<!-- 10.21 - 10.25 -->
+<div class="flex-1 flex flex-col items-center h-full justify-end group cursor-pointer">
+<div class="w-full bg-border-strong rounded-t-sm" style="height: 4%;" title="10-21 (休): 0件"></div>
+</div>
+<div class="flex-1 flex flex-col items-center h-full justify-end group cursor-pointer">
+<div class="w-full bg-primary hover:opacity-80 transition-all rounded-t-sm" style="height: 48%;" title="10-22: 184件"></div>
+</div>
+<div class="flex-1 flex flex-col items-center h-full justify-end group cursor-pointer">
+<div class="w-full bg-primary hover:opacity-80 transition-all rounded-t-sm" style="height: 50%;" title="10-23: 190件"></div>
+</div>
+<div class="flex-1 flex flex-col items-center h-full justify-end group cursor-pointer">
+<div class="w-full bg-primary hover:opacity-80 transition-all rounded-t-sm" style="height: 46%;" title="10-24: 175件"></div>
+</div>
+<div class="flex-1 flex flex-col items-center h-full justify-end group cursor-pointer">
+<div class="w-full bg-primary hover:opacity-80 transition-all rounded-t-sm" style="height: 43%;" title="10-25: 165件"></div>
+</div>
+<!-- 10.26 - 10.31 -->
+<div class="flex-1 flex flex-col items-center h-full justify-end group cursor-pointer">
+<div class="w-full bg-primary hover:opacity-80 transition-all rounded-t-sm" style="height: 47%;" title="10-26: 180件"></div>
+</div>
+<div class="flex-1 flex flex-col items-center h-full justify-end group cursor-pointer">
+<div class="w-full bg-border-strong rounded-t-sm" style="height: 4%;" title="10-27 (休): 0件"></div>
+</div>
+<div class="flex-1 flex flex-col items-center h-full justify-end group cursor-pointer">
+<div class="w-full bg-primary hover:opacity-80 transition-all rounded-t-sm" style="height: 45%;" title="10-28: 172件"></div>
+</div>
+<div class="flex-1 flex flex-col items-center h-full justify-end group cursor-pointer">
+<div class="w-full bg-primary hover:opacity-80 transition-all rounded-t-sm" style="height: 49%;" title="10-29: 188件"></div>
+</div>
+<div class="flex-1 flex flex-col items-center h-full justify-end group cursor-pointer">
+<div class="w-full bg-primary hover:opacity-80 transition-all rounded-t-sm" style="height: 51%;" title="10-30: 195件"></div>
+</div>
+<div class="flex-1 flex flex-col items-center h-full justify-end group cursor-pointer">
+<div class="w-full bg-primary hover:opacity-80 transition-all rounded-t-sm" style="height: 44%;" title="10-31: 170件"></div>
+</div>
+</div>
+<!-- X-Axis Date markers -->
+<div class="flex justify-between pl-10 pr-4 pt-2 text-body-sm font-label-data-md text-text-muted">
+<span>10-01</span>
+<span>10-06</span>
+<span>10-12</span>
+<span class="text-income-amber-deep font-bold bg-amber-50 px-1 border border-amber-200 rounded">10-18 (金牌日)</span>
+<span>10-24</span>
+<span>10-31</span>
+</div>
+</div>
+<!-- Legend and summary sub-bar -->
+<div class="mt-space-md p-space-sm bg-surface-elevated rounded border border-border-subtle flex items-center justify-between text-body-sm">
+<div class="flex items-center gap-4">
+<span class="text-text-muted">月度高低峰跨度: <span class="font-label-data-md text-text-display font-semibold">160件 ~ 360件</span></span>
+<span class="text-text-muted">有效工作日达成率: <span class="font-label-data-md text-status-connected font-semibold">100% 达标</span></span>
+</div>
+<div class="flex items-center gap-2">
+<span class="px-2 py-0.5 rounded bg-surface-card text-text-display font-label-ui border border-border-subtle">
+              加急双班日: 10月17-19日
+            </span>
+</div>
+</div>
+</div>
+<!-- RIGHT COLUMN (4 cols): 金牌产出勋章卡片 + 效能评级雷达 -->
+<div class="xl:col-span-4 flex flex-col gap-space-lg">
+<!-- 金牌单日产出勋章卡片 -->
+<div class="p-space-lg rounded bg-gradient-to-br from-amber-50 to-orange-50/40 border-2 border-income-amber flex flex-col justify-between relative overflow-hidden">
+<div class="absolute -right-4 -bottom-4 w-28 h-28 bg-amber-200/30 rounded-full blur-xl pointer-events-none"></div>
+<div>
+<div class="flex items-center justify-between">
+<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded bg-income-amber text-on-primary text-body-sm font-label-ui">
+<span class="material-symbols-outlined text-sm" data-icon="workspace_premium">workspace_premium</span>
+                单月巅峰产出
+              </span>
+<span class="text-body-sm font-label-data-md text-income-amber-deep font-semibold">2026-10-18 全日</span>
+</div>
+<div class="mt-space-md">
+<h3 class="text-headline-md font-headline-md text-text-display">金牌单日产出勋章</h3>
+<p class="text-body-sm font-body-sm text-text-muted mt-0.5">大促备货跨双班 (白班+夜班支援)</p>
+</div>
+<!-- Key metrics row -->
+<div class="mt-space-md grid grid-cols-2 gap-space-sm p-space-sm rounded bg-surface-card border border-amber-200/80">
+<div>
+<span class="text-body-sm font-body-sm text-text-muted">当日总封箱量</span>
+<div class="flex items-baseline gap-1 mt-0.5">
+<span class="text-headline-md font-display-income text-text-display">360</span>
+<span class="text-body-sm text-text-muted font-body-sm">件</span>
+</div>
+</div>
+<div>
+<span class="text-body-sm font-body-sm text-text-muted">单日计件结算</span>
+<div class="flex items-baseline gap-1 mt-0.5">
+<span class="text-headline-md font-display-income text-income-amber-deep">¥540.00</span>
+</div>
+</div>
+</div>
+</div>
+<div class="mt-space-md pt-space-sm border-t border-amber-200/60 flex items-center justify-between text-body-sm">
+<span class="text-text-muted">基准倍率: <strong class="font-label-data-md text-text-display">2.00x</strong> 日均基线</span>
+<span class="text-status-connected font-label-ui flex items-center gap-1 font-semibold">
+<span class="material-symbols-outlined text-base">verified</span>
+              质检零差错
+            </span>
+</div>
+</div>
+<!-- 效能评级与工位评估 -->
+<div class="p-space-lg rounded bg-surface-card border border-border-subtle flex-1 flex flex-col justify-between">
+<div>
+<div class="flex items-center justify-between pb-space-sm border-b border-border-subtle">
+<h3 class="text-headline-sm font-headline-sm text-text-display">包装效能评级与时效</h3>
+<span class="px-2.5 py-0.5 rounded bg-primary text-on-primary font-headline-sm text-body-sm">S级 优秀工位</span>
+</div>
+<!-- Metric Distribution Rows -->
+<div class="mt-space-md space-y-space-md">
+<div>
+<div class="flex justify-between text-body-sm">
+<span class="text-text-muted">标准件均耗时</span>
+<span class="font-label-data-md font-semibold text-text-display">42 秒 / 件 (标杆 55秒)</span>
+</div>
+<div class="w-full bg-surface-elevated h-2 rounded mt-1.5 overflow-hidden">
+<div class="bg-status-connected h-full rounded" style="width: 88%;"></div>
+</div>
+</div>
+<div>
+<div class="flex justify-between text-body-sm">
+<span class="text-text-muted">扫码打标复核正确率</span>
+<span class="font-label-data-md font-semibold text-text-display">99.98% (达标 &gt;99.5%)</span>
+</div>
+<div class="w-full bg-surface-elevated h-2 rounded mt-1.5 overflow-hidden">
+<div class="bg-primary h-full rounded" style="width: 99.8%;"></div>
+</div>
+</div>
+<div>
+<div class="flex justify-between text-body-sm">
+<span class="text-text-muted">月度目标完成进度</span>
+<span class="font-label-data-md font-semibold text-income-amber-deep">108.0% (超额完成)</span>
+</div>
+<div class="w-full bg-surface-elevated h-2 rounded mt-1.5 overflow-hidden">
+<div class="bg-income-amber h-full rounded" style="width: 100%;"></div>
+</div>
+</div>
+</div>
+</div>
+<div class="mt-space-md p-space-sm bg-surface-elevated rounded border border-border-subtle flex items-center justify-between text-body-sm">
+<span class="text-text-muted">班组综合排名: <span class="font-label-data-md text-text-display font-bold">第 2 名 / 32工位</span></span>
+<span class="text-primary font-label-ui font-semibold">保持S级奖励</span>
+</div>
+</div>
+</div>
+</div>
+<!-- 3. BOTTOM SECTION: 财务结算预估与对账小结明细卡片 + 审核签名 -->
+<div class="p-space-lg rounded bg-surface-card border border-border-subtle">
+<div class="flex flex-wrap items-center justify-between pb-space-md border-b border-border-subtle gap-2">
+<div class="flex items-center gap-space-md">
+<div class="w-8 h-8 rounded bg-surface-container-low text-primary flex items-center justify-center">
+<span class="material-symbols-outlined" data-icon="receipt_long">receipt_long</span>
+</div>
+<div>
+<h2 class="text-headline-sm font-headline-sm text-text-display">财务结算预估与对账小结明细</h2>
+<p class="text-body-sm font-body-sm text-text-muted">依据《仓储计件考核细则第4条》，核对月结流水款项</p>
+</div>
+</div>
+<div class="flex items-center gap-3">
+<span class="inline-flex items-center gap-1.5 text-body-sm text-status-connected font-label-ui bg-green-50 px-3 py-1 rounded border border-green-200">
+<span class="material-symbols-outlined text-base">check_circle</span>
+            财务合规核对状态: 已核验无异常
+          </span>
+<span class="text-body-sm font-label-data-md text-text-muted">计划结算发放日: 2026年11月5日</span>
+</div>
+</div>
+<!-- Tabular Breakdown -->
+<div class="mt-space-md overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="bg-surface-elevated text-body-sm font-label-ui text-text-muted border-y border-border-subtle">
+<th class="py-space-sm px-space-md">类目与结算项目</th>
+<th class="py-space-sm px-space-md">完成计件量</th>
+<th class="py-space-sm px-space-md">计件执行单价</th>
+<th class="py-space-sm px-space-md">小计金额 (RMB)</th>
+<th class="py-space-sm px-space-md">单据来源</th>
+<th class="py-space-sm px-space-md text-right">状态</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-border-subtle text-body-md font-body-md">
+<!-- Row 1 -->
+<tr class="hover:bg-surface-elevated transition-colors">
+<td class="py-space-sm px-space-md font-semibold text-text-display">
+                标准件基本计件 (全尺寸自动化封箱)
+              </td>
+<td class="py-space-sm px-space-md font-label-data-md">4,120 件</td>
+<td class="py-space-sm px-space-md font-label-data-md">¥1.50 /件</td>
+<td class="py-space-sm px-space-md font-label-data-md font-bold text-text-display">¥6,180.00</td>
+<td class="py-space-sm px-space-md text-body-sm text-text-muted font-label-data-md">BAR-10-STD-9042</td>
+<td class="py-space-sm px-space-md text-right">
+<span class="px-2 py-0.5 rounded text-body-sm font-label-ui bg-green-50 text-status-connected border border-green-200">系统已封存</span>
+</td>
+</tr>
+<!-- Row 2 -->
+<tr class="hover:bg-surface-elevated transition-colors">
+<td class="py-space-sm px-space-md font-semibold text-text-display">
+                加急津贴 (大促峰值夜间紧急赶工件)
+              </td>
+<td class="py-space-sm px-space-md font-label-data-md">200 件</td>
+<td class="py-space-sm px-space-md font-label-data-md">¥1.50 /件</td>
+<td class="py-space-sm px-space-md font-label-data-md font-bold text-text-display">¥300.00</td>
+<td class="py-space-sm px-space-md text-body-sm text-text-muted font-label-data-md">EXP-10-18-OT</td>
+<td class="py-space-sm px-space-md text-right">
+<span class="px-2 py-0.5 rounded text-body-sm font-label-ui bg-green-50 text-status-connected border border-green-200">工长复核已通过</span>
+</td>
+</tr>
+<!-- Total Row -->
+<tr class="bg-surface-container-low font-bold">
+<td class="py-space-md px-space-md text-primary font-headline-sm">
+                应发计件合计 (税前预估)
+              </td>
+<td class="py-space-md px-space-md font-label-data-md text-primary">4,320 件</td>
+<td class="py-space-md px-space-md font-label-data-md text-text-muted">-</td>
+<td class="py-space-md px-space-md font-display-income text-headline-md text-income-amber-deep">
+                ¥6,480.00
+              </td>
+<td class="py-space-md px-space-md text-body-sm text-text-muted" colspan="2">
+                扣除社保与预缴个税按集团财务统一清算执行
+              </td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- Audit & Foreman Signature Area -->
+<div class="mt-space-lg pt-space-md border-t border-border-subtle grid grid-cols-1 md:grid-cols-3 gap-space-md items-center">
+<!-- Packer Acknowledgement -->
+<div class="p-space-sm rounded bg-surface-elevated border border-border-subtle">
+<span class="text-body-sm font-label-ui text-text-muted">打包员自查确认</span>
+<div class="flex items-center justify-between mt-2">
+<span class="font-headline-sm text-body-md text-text-display">PK-9042 (李建国)</span>
+<span class="text-body-sm font-label-data-md text-status-connected font-semibold flex items-center gap-1">
+<span class="material-symbols-outlined text-sm">check</span>
+              已勾选无异议
+            </span>
+</div>
+</div>
+<!-- Foreman Review & Stamp -->
+<div class="p-space-sm rounded bg-surface-elevated border border-border-subtle relative">
+<span class="text-body-sm font-label-ui text-text-muted">车间领班/工长审核</span>
+<div class="flex items-center justify-between mt-2">
+<div>
+<span class="font-headline-sm text-body-md text-text-display" id="foreman-name">张德林 (工长-F08)</span>
+<span class="block text-body-sm text-text-muted font-label-data-md mt-0.5">审核码: OK-88219</span>
+</div>
+<div class="px-2 py-1 rounded border border-income-amber-deep bg-amber-50 text-income-amber-deep text-body-sm font-label-ui flex items-center gap-1" id="stamp-badge">
+<span class="material-symbols-outlined text-base">verified_user</span>
+<span>已核验签署</span>
+</div>
+</div>
+</div>
+<!-- Financial Release Confirmation -->
+<div class="p-space-sm rounded bg-surface-elevated border border-border-subtle">
+<span class="text-body-sm font-label-ui text-text-muted">财务薪资结转归档</span>
+<div class="flex items-center justify-between mt-2">
+<span class="font-body-md text-text-display">将于次月5日打卡发放</span>
+<button class="h-8 px-3 rounded bg-surface-card border border-border-strong text-primary text-body-sm font-label-ui hover:bg-surface-elevated transition-colors">
+              打印纸质凭证
+            </button>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- Interactive Inline Script for Foreman Sign Feedback -->
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const signBtn = document.getElementById('foreman-sign-btn');
+      const stampBadge = document.getElementById('stamp-badge');
+
+      if (signBtn && stampBadge) {
+        signBtn.addEventListener('click', () => {
+          stampBadge.classList.add('bg-green-100', 'text-status-connected', 'border-status-connected');
+          stampBadge.innerHTML = '<span class="material-symbols-outlined text-base">done_all</span><span>实时二次复签完成</span>';
+          signBtn.classList.add('bg-surface-elevated', 'text-text-muted');
+          signBtn.innerHTML = '<span class="material-symbols-outlined text-lg">check</span><span>工长已签署</span>';
+        });
+      }
+    });
+  </script>
+</body></html>

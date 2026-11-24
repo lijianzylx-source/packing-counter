@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="跨境包裹每日打包数量与收入统计工具，数据保存在本地浏览器。">
+<meta name="theme-color" content="#2563EB">
+<title>每日包裹打包统计助手</title>
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='7' fill='%232563EB'/><path d='M9 13l7-4 7 4v8l-7 4-7-4z' fill='none' stroke='white' stroke-width='2' stroke-linejoin='round'/></svg>">
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+
+<div class="app-shell">
+
+  <!-- ============ 侧边栏（PC 端为左侧导航，手机端为底部导航） ============ -->
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-brand">
+      <span class="brand-mark" aria-hidden="true">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round">
+          <path d="M3 8l9-5 9 5v8l-9 5-9-5z"/><path d="M3 8l9 5 9-5"/><path d="M12 13v8"/>
+        </svg>
+      </span>
+      <strong>包裹打包统计</strong>
+    </div>
+
+    <nav class="tabbar" role="tablist" aria-label="主导航">
+      <button type="button" class="tab active" data-view="record" role="tab" aria-selected="true">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
+        <span>记录</span>
+      </button>
+      <button type="button" class="tab" data-view="history" role="tab" aria-selected="false">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M3 12a9 9 0 1 0 3-6.7M3 4v4h4M12 7v5l3 2"/></svg>
+        <span>历史</span>
+      </button>
+      <button type="button" class="tab" data-view="stats" role="tab" aria-selected="false">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg>
+        <span>统计</span>
+      </button>
+      <button type="button" class="tab" data-view="settings" role="tab" aria-selected="false">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.6 1.6 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.6 1.6 0 0 0-1.8-.3 1.6 1.6 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1A1.6 1.6 0 0 0 9 19.4a1.6 1.6 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.6 1.6 0 0 0 .3-1.8 1.6 1.6 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1A1.6 1.6 0 0 0 4.6 9a1.6 1.6 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.6 1.6 0 0 0 1.8.3H9a1.6 1.6 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.6 1.6 0 0 0 1 1.5 1.6 1.6 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.6 1.6 0 0 0-.3 1.8V9a1.6 1.6 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.6 1.6 0 0 0-1.5 1z"/></svg>
+        <span>设置</span>
+      </button>
+    </nav>
+
+    <div class="sidebar-panel">
+      <div class="sidebar-panel-title">今日概览</div>
+      <div class="sidebar-stat"><span>今日件数</span><b id="side-today-count">0</b></div>
+      <div class="sidebar-stat"><span>今日收入</span><b id="side-today-income">¥0.00</b></div>
+      <div class="sidebar-stat"><span>本月件数</span><b id="side-month-count">0</b></div>
+      <div class="sidebar-stat"><span>本月收入</span><b id="side-month-income">¥0.00</b></div>
+    </div>
+
+    <button type="button" class="sidebar-user" id="sidebar-user" title="账号设置">
+      <span class="account-avatar" id="sidebar-avatar" aria-hidden="true">—</span>
+      <span class="sidebar-user-text">
+        <b id="sidebar-username">未登录</b>
+        <i id="sidebar-userstatus">离线使用</i>
+      </span>
+    </button>
+  </aside>
+
+  <div class="app-body">
+
+  <header class="app-header">
+    <div class="app-header-inner">
+      <div class="brand">
+        <span class="brand-mark" aria-hidden="true">
+          <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round">
+            <path d="M3 8l9-5 9 5v8l-9 5-9-5z"/><path d="M3 8l9 5 9-5"/><path d="M12 13v8"/>
+          </svg>
+        </span>
+        <div class="brand-text">
+          <strong>包裹打包统计</strong>
+          <span id="header-date">—</span>
+        </div>
+      </div>
+      <h1 class="page-title" id="page-title">记录</h1>
+      <div class="header-rate" title="当前单件收入">¥<span id="header-rate-value">1.50</span>/件</div>
+    </div>
+  </header>
+
+  <div class="offline-banner" id="offline-banner" hidden>离线模式：连不上服务器，已跳过账号校验，本机数据照常使用</div>
+
+  <main class="container">
+
+  <!-- ================= 登录 / 注册 ================= -->
+  <section class="view view-auth" id="view-auth" hidden>
+    <div class="auth-card">
+      <div class="auth-brand">
+        <span class="brand-mark" aria-hidden="true">
+          <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round">
+            <path d="M3 8l9-5 9 5v8l-9 5-9-5z"/><path d="M3 8l9 5 9-5"/><path d="M12 13v8"/>
+          </svg>
+        </span>
+        <div class="auth-brand-text">
+          <h1>包裹打包统计</h1>
+          <p id="auth-subtitle">登录后开始记录每日打包数量</p>
+        </div>
+      </div>
+
+      <div class="seg auth-tabs" role="group" aria-label="登录或注册" id="auth-tabs">
+        <button type="button" data-mode="login" class="active">登录</button>
+        <button type="button" data-mode="register">注册</button>
+      </div>
+
+      <form id="auth-form" autocomplete="off" novalidate>
+        <div class="field">
+          <label class="field-label" for="auth-username">用户名</label>
+          <input type="text" id="auth-username" class="control" autocomplete="username" autocapitalize="none" spellcheck="false" placeholder="2–20 位，中英文 / 数字 / 下划线">
+        </div>
+        <div class="field">
+          <label class="field-label" for="auth-password">密码</label>
+          <input type="password" id="auth-password" class="control" autocomplete="current-password" placeholder="至少 6 位">
+        </div>
+        <div class="field" id="field-password2" hidden>
+          <label class="field-label" for="auth-password2">确认密码</label>
+          <input type="password" id="auth-password2" class="control" autocomplete="new-password" placeholder="再次输入密码">
+        </div>
+
+        <p class="auth-error" id="auth-error" role="alert" hidden></p>
+
+        <button type="submit" class="btn btn-primary btn-block" id="auth-submit">登录</button>
+      </form>
+
+      <p class="auth-foot" id="auth-server">正在连接服务器…</p>
+
+      <div class="auth-server-box">
+        <label class="field-label" for="auth-server-url">服务器地址</label>
+        <div class="auth-server-row">
+          <input type="text" id="auth-server-url" class="control" spellcheck="false" autocapitalize="none" placeholder="http://localhost:5173">
+          <button type="button" class="btn btn-secondary btn-sm" id="btn-test-server">连接</button>
+        </div>
+        <p class="hint">服务器未启动时，用 <code>node server.js</code> 启动；若从别的电脑/手机打开，请填该电脑的局域网地址。</p>
+        <button type="button" class="btn btn-primary btn-block" id="btn-open-server" hidden>在服务器上打开页面</button>
+      </div>
+
+      <button type="button" class="auth-offline" id="btn-offline" hidden>以离线模式进入（不登录）</button>
+    </div>
+  </section>
+
+  <!-- ================= 记录 ================= -->
+  <section class="view" id="view-record" aria-labelledby="record-title">
+    <h1 class="sr-only" id="record-title">记录</h1>
+
+    <div class="record-overview">
+      <section class="card hero-card">
+        <p class="hero-label">今日收入</p>
+        <p class="hero-figure" id="today-income">¥0.00</p>
+        <p class="hero-sub" id="today-sub">今日 0 件 · 单价 ¥1.50</p>
+      </section>
+
+      <div class="stat-row">
+        <div class="stat-tile">
+          <span class="stat-label">今日件数</span>
+          <span class="stat-value" id="stat-today-count">0</span>
+          <span class="stat-unit">件</span>
+        </div>
+        <div class="stat-tile">
+          <span class="stat-label">本月件数</span>
+          <span class="stat-value" id="stat-month-count">0</span>
+          <span class="stat-unit">件</span>
+        </div>
+        <div class="stat-tile">
+          <span class="stat-label">本月收入</span>
+          <span class="stat-value" id="stat-month-income">¥0.00</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="record-form">
+    <section class="card">
+      <h2 class="card-title">记录打包数量</h2>
+
+      <div class="field">
+        <span class="field-label" id="label-date">日期</span>
+        <div class="date-display" aria-labelledby="label-date">
+          <svg class="date-icon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true">
+            <rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/>
+          </svg>
+          <span id="date-display-text">—</span>
+          <span class="today-tag">今天</span>
+        </div>
+        <input type="hidden" id="input-date">
+      </div>
+
+      <div class="field">
+        <span class="field-label" id="label-count">打包件数</span>
+        <div class="stepper">
+          <button type="button" class="step-btn" data-step="-1" aria-label="减少 1">−</button>
+          <input type="number" id="input-count" class="control stepper-input" inputmode="numeric" min="0" step="1" size="1" placeholder="0" aria-labelledby="label-count">
+          <button type="button" class="step-btn" data-step="1" aria-label="增加 1">+</button>
+        </div>
+        <div class="stepper-quick">
+          <button type="button" class="link-btn" data-step="-10">−10</button>
+          <button type="button" class="link-btn" data-step="10">+10</button>
+        </div>
+      </div>
+
+      <div class="preview">
+        <span class="preview-label">预计收入</span>
+        <strong class="preview-value" id="preview-income">¥0.00</strong>
+      </div>
+
+      <div class="field">
+        <label class="field-label" for="input-note">备注（可选）</label>
+        <input type="text" id="input-note" class="control" maxlength="100" placeholder="如：加班 / 请假 / SKU 多">
+      </div>
+
+      <div class="form-actions">
+        <button type="button" id="btn-save" class="btn btn-primary btn-block">保存记录</button>
+        <button type="button" id="btn-delete" class="btn btn-danger-ghost btn-block" hidden>删除该日记录</button>
+      </div>
+      <p class="hint" id="form-hint">同一天只能有一条记录，重复保存将覆盖原记录。</p>
+    </section>
+    </div>
+  </section>
+
+  <!-- ================= 历史 ================= -->
+  <section class="view" id="view-history" aria-labelledby="history-title" hidden>
+    <h1 class="sr-only" id="history-title">历史</h1>
+
+    <section class="card">
+      <div class="month-nav">
+        <button type="button" class="icon-btn" id="hist-prev" aria-label="上一月">‹</button>
+        <span class="month-label" id="hist-month">—</span>
+        <button type="button" class="icon-btn" id="hist-next" aria-label="下一月">›</button>
+      </div>
+      <p class="month-summary" id="hist-summary">—</p>
+    </section>
+
+    <section class="card">
+      <div class="field">
+        <label class="field-label" for="hist-search">搜索</label>
+        <input type="search" id="hist-search" class="control" placeholder="搜索备注或日期，如「加班」或「10/12」">
+      </div>
+      <div class="range-row">
+        <input type="date" id="hist-from" class="control" aria-label="起始日期">
+        <span class="range-sep">至</span>
+        <input type="date" id="hist-to" class="control" aria-label="结束日期">
+        <button type="button" id="hist-reset" class="btn btn-ghost btn-sm">重置</button>
+      </div>
+      <div class="range-row">
+        <input type="date" id="hist-backfill" class="control" aria-label="补录日期">
+        <button type="button" id="btn-backfill" class="btn btn-secondary btn-sm">补录这天</button>
+      </div>
+      <p class="hint">首页只记当天。补录往日的量或修改已有记录，都在这里完成。</p>
+    </section>
+
+    <ul class="record-list" id="hist-list"></ul>
+    <div class="empty" id="hist-empty" hidden>
+      <p class="empty-title">没有匹配的记录</p>
+      <p class="empty-sub">换个月份或清空筛选条件试试。</p>
+    </div>
+  </section>
+
+  <!-- ================= 统计 ================= -->
+  <section class="view" id="view-stats" aria-labelledby="stats-title" hidden>
+    <h1 class="sr-only" id="stats-title">统计</h1>
+
+    <section class="card">
+      <div class="month-nav">
+        <button type="button" class="icon-btn" id="stats-prev" aria-label="上一月">‹</button>
+        <span class="month-label" id="stats-month">—</span>
+        <button type="button" class="icon-btn" id="stats-next" aria-label="下一月">›</button>
+      </div>
+      <div class="stat-grid" id="stats-tiles"></div>
+    </section>
+
+    <section class="card">
+      <div class="card-head">
+        <h2 class="card-title" id="chart-title">近 7 天打包件数</h2>
+      </div>
+
+      <!-- 筛选行：统一放在图表上方，作用于整张图 -->
+      <div class="filter-row">
+        <div class="seg" role="group" aria-label="时间范围" id="chart-range">
+          <button type="button" data-range="7" class="active">近 7 天</button>
+          <button type="button" data-range="30">近 30 天</button>
+        </div>
+        <div class="seg" role="group" aria-label="指标" id="chart-metric">
+          <button type="button" data-metric="count" class="active">件数</button>
+          <button type="button" data-metric="income">收入</button>
+        </div>
+      </div>
+
+      <div class="chart-wrap" id="chart-wrap">
+        <svg id="chart" role="img" aria-labelledby="chart-title"></svg>
+        <div class="chart-tip" id="chart-tip" role="tooltip" hidden></div>
+      </div>
+
+      <div class="chart-foot">
+        <button type="button" id="btn-table" class="btn btn-ghost btn-sm" aria-expanded="false">表格视图</button>
+        <span class="chart-note" id="chart-note"></span>
+      </div>
+
+      <div class="table-wrap" id="chart-table-wrap" hidden>
+        <table class="data-table">
+          <caption class="sr-only">图表数据表格视图</caption>
+          <thead><tr><th scope="col">日期</th><th scope="col">件数</th><th scope="col">收入</th></tr></thead>
+          <tbody id="chart-table-body"></tbody>
+        </table>
+      </div>
+    </section>
+  </section>
+
+  <!-- ================= 设置 ================= -->
+  <section class="view" id="view-settings" aria-labelledby="settings-title" hidden>
+    <h1 class="sr-only" id="settings-title">设置</h1>
+
+    <section class="card">
+      <h2 class="card-title">账号</h2>
+      <div class="account-row">
+        <span class="account-avatar" id="account-avatar" aria-hidden="true">—</span>
+        <div class="account-info">
+          <strong id="account-name">未登录</strong>
+          <span id="account-status">—</span>
+        </div>
+      </div>
+      <button type="button" id="btn-logout" class="btn btn-secondary btn-block">退出登录</button>
+      <p class="hint">记录与设置保存在本机浏览器，<b>不会上传服务器</b>；账号用于身份识别，换设备登录看不到本机的数据。同一浏览器只有一份本机数据，与账号无关。</p>
+    </section>
+
+    <section class="card">
+      <h2 class="card-title">单件收入</h2>
+      <div class="field">
+        <label class="field-label" for="input-price">每件收入（元）</label>
+        <input type="number" id="input-price" class="control" min="0.01" max="100" step="0.01" inputmode="decimal">
+      </div>
+      <button type="button" id="btn-save-price" class="btn btn-primary btn-block">保存单价</button>
+      <p class="hint">修改单价后，所有历史记录的收入会按新单价重新计算。</p>
+    </section>
+
+    <section class="card">
+      <h2 class="card-title">每日提醒</h2>
+      <label class="switch-row">
+        <span>开启提醒</span>
+        <input type="checkbox" id="input-reminder-enabled" class="switch">
+      </label>
+      <div class="field">
+        <label class="field-label" for="input-reminder-time">提醒时间</label>
+        <input type="time" id="input-reminder-time" class="control">
+      </div>
+      <div class="field">
+        <label class="field-label" for="input-reminder-text">提醒文案</label>
+        <input type="text" id="input-reminder-text" class="control" maxlength="60">
+      </div>
+      <button type="button" id="btn-save-reminder" class="btn btn-primary btn-block">保存提醒设置</button>
+      <p class="hint">提醒依赖浏览器通知权限，页面需保持打开（可切到后台）。</p>
+    </section>
+
+    <section class="card">
+      <h2 class="card-title">数据</h2>
+      <div class="btn-column">
+        <button type="button" id="btn-export-month" class="btn btn-secondary">导出本月 CSV</button>
+        <button type="button" id="btn-export-all" class="btn btn-secondary">导出全部 CSV</button>
+        <button type="button" id="btn-backup" class="btn btn-secondary">备份数据（JSON）</button>
+        <button type="button" id="btn-restore" class="btn btn-secondary">恢复备份（JSON）</button>
+        <input type="file" id="file-restore" accept="application/json,.json" hidden>
+      </div>
+      <p class="hint">数据只保存在本机浏览器，不会上传服务器。清理浏览器数据会一并清除记录，建议定期备份。</p>
+    </section>
+
+    <section class="card">
+      <h2 class="card-title">更多</h2>
+      <div class="btn-column">
+        <button type="button" id="btn-demo" class="btn btn-secondary">载入示例数据</button>
+        <button type="button" id="btn-clear" class="btn btn-danger-ghost">清空全部数据</button>
+      </div>
+      <p class="hint about-text">
+        每日包裹打包统计助手 · v1.1.0（PC 版）<br>
+        收入 = 打包件数 × 单件收入；账号用于身份识别，记录数据存于本机浏览器。
+      </p>
+    </section>
+  </section>
+</main>
+
+  </div><!-- /.app-body -->
+</div><!-- /.app-shell -->
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script src="assets/core.js"></script>
+<script src="assets/app.js"></script>
+</body>
+</html>

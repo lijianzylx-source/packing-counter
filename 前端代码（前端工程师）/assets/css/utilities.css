@@ -1,0 +1,38 @@
+/* ============================================================
+ * 工具类（Utilities）
+ * 项目自带的一层极小工具集，替代 Tailwind CDN —— 不依赖任何外网资源，
+ * 页面在离线 / 内网环境下也能完整渲染。
+ * 命名与 Tailwind 习惯保持一致，便于后续迁移到构建工具。
+ * ============================================================ */
+
+/* ---------------- 栅格 ---------------- */
+.grid { display: grid; }
+.grid-cols-1 { grid-template-columns: repeat(1, minmax(0, 1fr)); }
+.grid-cols-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.grid-cols-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.grid-cols-4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+.grid-cols-6 { grid-template-columns: repeat(6, minmax(0, 1fr)); }
+
+@media (min-width: 768px) {
+  .md\:grid-cols-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .md\:col-span-2 { grid-column: span 2 / span 2; }
+}
+
+/* ---------------- 补充工具类 ---------------- */
+.u-items-baseline { align-items: baseline; }
+.u-justify-center { justify-content: center; }
+.u-body-md { font-size: 14px; line-height: 20px; }
+
+/* ---------------- 图标（内联 SVG 精灵） ---------------- */
+.icon {
+  width: 1.25em;
+  height: 1.25em;
+  flex: none;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  vertical-align: -0.2em;
+}
+.icon--sm { width: 1em; height: 1em; }

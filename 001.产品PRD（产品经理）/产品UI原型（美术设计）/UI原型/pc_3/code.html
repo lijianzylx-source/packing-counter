@@ -1,0 +1,615 @@
+<!DOCTYPE html>
+
+<html class="h-full bg-surface-bg" lang="zh-CN"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>速达跨境计件 - 包装工作台 v2.4</title>
+<!-- Material Symbols Outlined -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Fonts: Space Grotesk, Inter, JetBrains Mono -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@400;500;600;700&amp;family=Space+Grotesk:wght@500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+            "status-error": "#EF4444",
+            "border-strong": "#CBD5E1",
+            "tertiary-container": "#743d00",
+            "error": "#ba1a1a",
+            "on-secondary-container": "#fefcff",
+            "on-tertiary-fixed": "#2f1500",
+            "primary-fixed": "#dde1ff",
+            "tertiary": "#532a00",
+            "on-primary": "#ffffff",
+            "income-amber-deep": "#B45309",
+            "surface-container": "#e5eeff",
+            "inverse-primary": "#b8c4ff",
+            "on-secondary-fixed": "#00174b",
+            "inverse-surface": "#213145",
+            "surface-dim": "#cbdbf5",
+            "on-background": "#0b1c30",
+            "on-primary-fixed-variant": "#173bab",
+            "surface-bright": "#f8f9ff",
+            "primary-fixed-dim": "#b8c4ff",
+            "surface-tint": "#3755c3",
+            "status-connected": "#10B981",
+            "surface-container-lowest": "#ffffff",
+            "surface-card": "#FFFFFF",
+            "border-subtle": "#E2E8F0",
+            "on-tertiary-container": "#ffa85d",
+            "inverse-on-surface": "#eaf1ff",
+            "secondary-container": "#316bf3",
+            "tertiary-fixed": "#ffdcc3",
+            "surface-bg": "#F8FAFC",
+            "surface-container-highest": "#d3e4fe",
+            "status-warning": "#F59E0B",
+            "surface-container-low": "#eff4ff",
+            "on-surface": "#0b1c30",
+            "outline-variant": "#c4c5d5",
+            "primary": "#00288e",
+            "secondary": "#0051d5",
+            "background": "#f8f9ff",
+            "primary-container": "#1e40af",
+            "surface": "#f8f9ff",
+            "income-amber": "#F59E0B",
+            "on-tertiary": "#ffffff",
+            "on-secondary": "#ffffff",
+            "surface-elevated": "#F1F5F9",
+            "error-container": "#ffdad6",
+            "on-primary-container": "#a8b8ff",
+            "text-muted": "#64748B",
+            "secondary-fixed-dim": "#b4c5ff",
+            "surface-variant": "#d3e4fe",
+            "on-primary-fixed": "#001453",
+            "on-error-container": "#93000a",
+            "text-display": "#0F172A",
+            "surface-container-high": "#dce9ff",
+            "on-secondary-fixed-variant": "#003ea8",
+            "on-error": "#ffffff",
+            "secondary-fixed": "#dbe1ff",
+            "tertiary-fixed-dim": "#ffb77d"
+          },
+          "borderRadius": {
+            "DEFAULT": "0.125rem",
+            "lg": "0.25rem",
+            "xl": "0.5rem",
+            "full": "0.75rem"
+          },
+          "spacing": {
+            "gutter": "1rem",
+            "space-xl": "2rem",
+            "space-sm": "0.5rem",
+            "margin": "1rem",
+            "space-lg": "1.25rem",
+            "gutter-desktop": "1.5rem",
+            "margin-desktop": "2rem",
+            "space-md": "0.75rem",
+            "space-xs": "0.25rem"
+          },
+          "fontFamily": {
+            "body-lg": ["Inter"],
+            "headline-sm": ["Space Grotesk"],
+            "headline-md": ["Space Grotesk"],
+            "label-ui": ["Inter"],
+            "display-income-mobile": ["JetBrains Mono"],
+            "body-md": ["Inter"],
+            "body-sm": ["Inter"],
+            "display-income": ["JetBrains Mono"],
+            "label-data-md": ["JetBrains Mono"],
+            "headline-lg": ["Space Grotesk"],
+            "label-data-lg": ["JetBrains Mono"]
+          },
+          "fontSize": {
+            "body-lg": ["16px", { "lineHeight": "24px", "fontWeight": "500" }],
+            "headline-sm": ["18px", { "lineHeight": "24px", "fontWeight": "600" }],
+            "headline-md": ["22px", { "lineHeight": "28px", "fontWeight": "600" }],
+            "label-ui": ["12px", { "lineHeight": "16px", "letterSpacing": "0.04em", "fontWeight": "600" }],
+            "display-income-mobile": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+            "body-md": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+            "body-sm": ["12px", { "lineHeight": "16px", "fontWeight": "400" }],
+            "display-income": ["40px", { "lineHeight": "48px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+            "label-data-md": ["14px", { "lineHeight": "18px", "fontWeight": "500" }],
+            "headline-lg": ["28px", { "lineHeight": "36px", "letterSpacing": "-0.01em", "fontWeight": "700" }],
+            "label-data-lg": ["20px", { "lineHeight": "26px", "fontWeight": "600" }]
+          }
+        }
+      }
+    }
+  </script>
+</head>
+<body class="h-full font-body-md text-body-md text-text-display bg-surface-bg antialiased selection:bg-primary-container selection:text-white">
+<!-- ========================================================================= -->
+<!-- SIDE NAVIGATION (Shared Component: SideNavBar)                            -->
+<!-- ========================================================================= -->
+<aside class="fixed top-0 left-0 h-screen w-64 flex flex-col justify-between bg-surface-card border-r border-border-subtle select-none z-30">
+<div class="flex flex-col">
+<!-- SideNav Brand Header -->
+<div class="p-space-lg border-b border-border-subtle bg-surface-container-low/40">
+<div class="flex items-center gap-space-sm mb-1">
+<div class="w-8 h-8 rounded bg-primary-container flex items-center justify-center text-white font-headline-sm text-headline-sm">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">inventory_2</span>
+</div>
+<div>
+<h1 class="text-headline-sm font-headline-sm text-text-display uppercase tracking-tight">速达跨境计件</h1>
+<p class="text-label-ui font-label-ui text-text-muted">包装工作台 v2.4</p>
+</div>
+</div>
+</div>
+<!-- Navigation Tabs -->
+<nav aria-label="主要导航" class="flex flex-col py-space-sm gap-1">
+<!-- Item 0: 今日录入 (Active) -->
+<a class="flex items-center gap-space-sm px-space-md py-space-sm bg-surface-container-low border-l-4 border-primary text-primary font-label-ui text-label-ui active:translate-y-px transition-all" href="#today-input">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">inventory_2</span>
+<span class="flex-1 font-body-lg text-body-lg">今日录入</span>
+<span class="text-xs px-1.5 py-0.5 rounded bg-primary text-white font-label-ui">F1</span>
+</a>
+<!-- Item 1: 历史明细 (Inactive) -->
+<a class="flex items-center gap-space-sm px-space-md py-space-sm text-text-muted font-label-ui text-label-ui hover:bg-surface-elevated active:translate-y-px transition-colors duration-150" href="#history">
+<span class="material-symbols-outlined">history</span>
+<span class="flex-1 font-body-lg text-body-lg">历史明细</span>
+</a>
+<!-- Item 2: 统计看板 (Inactive) -->
+<a class="flex items-center gap-space-sm px-space-md py-space-sm text-text-muted font-label-ui text-label-ui hover:bg-surface-elevated active:translate-y-px transition-colors duration-150" href="#analytics">
+<span class="material-symbols-outlined">analytics</span>
+<span class="flex-1 font-body-lg text-body-lg">统计看板</span>
+</a>
+<!-- Item 3: 系统设置 (Inactive) -->
+<a class="flex items-center gap-space-sm px-space-md py-space-sm text-text-muted font-label-ui text-label-ui hover:bg-surface-elevated active:translate-y-px transition-colors duration-150" href="#settings">
+<span class="material-symbols-outlined">settings</span>
+<span class="flex-1 font-body-lg text-body-lg">系统设置</span>
+</a>
+</nav>
+</div>
+<!-- SideNav Footer Info (Operator & Connectivity) -->
+<div class="p-space-md border-t border-border-subtle bg-surface-container-low/30 flex flex-col gap-2">
+<div class="flex items-center justify-between text-body-sm font-body-sm text-text-muted">
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-text-muted text-[18px]">badge</span>
+<span class="font-label-data-md text-label-data-md text-text-display font-semibold">工号: PK-9042</span>
+</div>
+<span class="text-[11px] bg-slate-200 px-1 py-0.5 rounded text-slate-700">packer_08</span>
+</div>
+<div class="flex items-center justify-between text-body-sm font-body-sm">
+<div class="flex items-center gap-1.5">
+<span class="w-2 h-2 rounded-full bg-status-connected"></span>
+<span class="text-label-ui font-label-ui text-text-display">服务状态: 已连接</span>
+</div>
+<span class="font-label-data-md text-label-data-md text-text-muted text-[12px]">18ms</span>
+</div>
+</div>
+</aside>
+<!-- ========================================================================= -->
+<!-- TOP NAVIGATION BAR (Shared Component: TopNavBar)                          -->
+<!-- ========================================================================= -->
+<header class="fixed top-0 left-64 right-0 h-16 flex items-center bg-surface-card border-b border-border-subtle z-20 px-space-lg select-none">
+<div class="flex justify-between items-center w-full">
+<!-- Breadcrumb & Workspace context -->
+<div class="flex items-center gap-space-md">
+<div class="flex items-center gap-2">
+<span class="font-headline-sm text-headline-sm text-text-display tracking-tight">包装打单工作台</span>
+<span class="text-text-muted">/</span>
+<div class="flex items-center gap-1.5 bg-surface-elevated px-2.5 py-1 rounded border border-border-subtle">
+<span class="w-2 h-2 rounded-full bg-primary-container"></span>
+<span class="font-body-lg text-body-lg text-text-display">今日录入 / 工位03</span>
+</div>
+</div>
+</div>
+<!-- Trailing actions, metrics, and state pills -->
+<div class="flex items-center gap-space-md">
+<!-- Live Unit Price Badge -->
+<div class="flex items-center gap-1.5 px-3 py-1.5 bg-amber-50 border border-income-amber rounded">
+<span class="material-symbols-outlined text-income-amber-deep text-[18px]">sell</span>
+<span class="font-label-data-md text-label-data-md font-bold text-income-amber-deep tracking-tight">单价: ¥1.50/件</span>
+</div>
+<!-- Sync & Network Icons Cluster -->
+<div class="flex items-center gap-2 px-2 py-1 bg-surface-container-low rounded border border-border-subtle text-primary">
+<span class="material-symbols-outlined text-[20px]" title="数据实时同步">sync</span>
+<span class="material-symbols-outlined text-[20px]" title="局域网信号强">wifi</span>
+<span class="material-symbols-outlined text-[20px]" title="工作轮班正常计时">schedule</span>
+</div>
+<!-- Quick Export Action -->
+<button class="flex items-center gap-1 px-3 py-1.5 bg-surface-card hover:bg-surface-elevated active:translate-y-px border border-border-strong rounded font-label-ui text-label-ui text-text-display transition-colors" type="button">
+<span class="material-symbols-outlined text-[18px]">file_download</span>
+<span>数据导出</span>
+</button>
+</div>
+</div>
+</header>
+<!-- ========================================================================= -->
+<!-- MAIN WORKSPACE CONTENT AREA (Desktop 12-Column Split Layout)              -->
+<!-- ========================================================================= -->
+<main class="ml-64 pt-16 min-h-screen bg-surface-bg p-space-lg flex flex-col gap-space-lg">
+<!-- Top Notice / Date Lock Announcement (PRD F-001) -->
+<section aria-label="日期状态" class="w-full bg-surface-card border border-border-strong rounded p-space-md flex items-center justify-between shadow-[0_1px_2px_rgba(0,0,0,0.02)]">
+<div class="flex items-center gap-3">
+<div class="w-9 h-9 rounded bg-surface-container flex items-center justify-center text-primary">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">calendar_today</span>
+</div>
+<div>
+<div class="flex items-center gap-2">
+<span class="font-headline-sm text-headline-sm text-text-display">2026年10月30日 星期五</span>
+<span class="inline-flex items-center px-2 py-0.5 text-xs font-semibold text-primary bg-surface-container-low border border-primary/30 rounded">当日锁定</span>
+</div>
+<p class="font-body-sm text-body-sm text-text-muted mt-0.5">
+            系统自动锁定当天，杜绝误操作。历史补录请前往「<a class="text-secondary hover:underline font-medium" href="#history">历史明细</a>」页面申请复核。
+          </p>
+</div>
+</div>
+<div class="flex items-center gap-3">
+<div class="text-right">
+<p class="font-label-ui text-label-ui text-text-muted">当班执行状态</p>
+<p class="font-label-data-md text-label-data-md font-bold text-status-connected">实时盘存中 (Live)</p>
+</div>
+<div class="h-8 w-px bg-border-subtle"></div>
+<button class="text-text-muted hover:text-text-display text-sm flex items-center gap-0.5" title="工作台帮助文档" type="button">
+<span class="material-symbols-outlined text-[18px]">help_outline</span>
+<span class="font-label-ui text-label-ui">规程指南</span>
+</button>
+</div>
+</section>
+<!-- Main Dual-Column Content Grid -->
+<div class="grid grid-cols-12 gap-space-lg items-start">
+<!-- ===================================================================== -->
+<!-- LEFT WORKSTATION PANEL: Input Terminal & Submission Engine (7 Cols)  -->
+<!-- ===================================================================== -->
+<section class="col-span-12 xl:col-span-7 flex flex-col gap-space-lg">
+<!-- Big Input Terminal Card -->
+<div class="bg-surface-card border border-border-strong rounded p-space-xl flex flex-col gap-space-lg relative">
+<div class="flex items-center justify-between border-b border-border-subtle pb-space-sm">
+<div>
+<h2 class="font-headline-md text-headline-md text-text-display">计件包裹录入端</h2>
+<p class="font-body-sm text-body-sm text-text-muted">单件包规标准条码采集，光标默认聚焦输入框</p>
+</div>
+<span class="inline-flex items-center gap-1 font-label-data-md text-label-data-md bg-surface-elevated border border-border-subtle px-2.5 py-1 rounded text-text-muted">
+<span class="material-symbols-outlined text-[16px]">keyboard</span>
+              支持小键盘直输
+            </span>
+</div>
+<!-- Parcel Count Huge Input Box -->
+<div class="flex flex-col gap-2">
+<div class="flex justify-between items-center">
+<label class="font-label-ui text-label-ui uppercase tracking-wider text-text-muted" for="parcel-count-input">
+                本日完成打包量 (件)
+              </label>
+<span class="font-label-ui text-label-ui text-text-muted">支持递增快捷键</span>
+</div>
+<div class="relative flex items-center">
+<input autofocus="" class="w-full h-16 bg-white border-2 border-border-strong rounded px-4 text-display-income font-display-income text-text-display tracking-tight focus:border-primary focus:ring-0 focus:outline-none transition-colors" id="parcel-count-input" max="99999" min="0" placeholder="0" type="number" value="280"/>
+<div class="absolute right-4 flex items-center gap-2 pointer-events-none">
+<span class="text-text-muted font-body-lg text-body-lg font-bold">件</span>
+</div>
+</div>
+</div>
+<!-- Quick Increment Buttons (+10, +20, +50, +100, +200, 清空) -->
+<div class="flex flex-col gap-1.5">
+<div class="font-label-ui text-label-ui text-text-muted">一键快速增量垫计:</div>
+<div class="grid grid-cols-6 gap-2">
+<button class="h-12 bg-white border-[1.5px] border-border-strong hover:bg-surface-elevated active:bg-slate-100 active:translate-y-px rounded font-label-data-md text-label-data-md font-semibold text-text-display transition-all" onclick="adjustCount(10)" type="button">
+                +10
+              </button>
+<button class="h-12 bg-white border-[1.5px] border-border-strong hover:bg-surface-elevated active:bg-slate-100 active:translate-y-px rounded font-label-data-md text-label-data-md font-semibold text-text-display transition-all" onclick="adjustCount(20)" type="button">
+                +20
+              </button>
+<button class="h-12 bg-white border-[1.5px] border-border-strong hover:bg-surface-elevated active:bg-slate-100 active:translate-y-px rounded font-label-data-md text-label-data-md font-semibold text-text-display transition-all" onclick="adjustCount(50)" type="button">
+                +50
+              </button>
+<button class="h-12 bg-white border-[1.5px] border-border-strong hover:bg-surface-elevated active:bg-slate-100 active:translate-y-px rounded font-label-data-md text-label-data-md font-semibold text-text-display transition-all" onclick="adjustCount(100)" type="button">
+                +100
+              </button>
+<button class="h-12 bg-white border-[1.5px] border-border-strong hover:bg-surface-elevated active:bg-slate-100 active:translate-y-px rounded font-label-data-md text-label-data-md font-semibold text-text-display transition-all" onclick="adjustCount(200)" type="button">
+                +200
+              </button>
+<button class="h-12 bg-red-50 border-[1.5px] border-red-200 hover:bg-red-100 active:translate-y-px rounded font-label-ui text-label-ui font-bold text-status-error transition-all" onclick="resetCount()" title="清空归零 (快捷键 F1)" type="button">
+                清空
+              </button>
+</div>
+</div>
+<!-- Real-time Settlement Callout Banner -->
+<div class="bg-amber-50/70 border border-income-amber/80 rounded p-space-md flex items-center justify-between">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-income-amber-deep text-[28px]" style="font-variation-settings: 'FILL' 1;">payments</span>
+<div>
+<p class="font-label-ui text-label-ui text-income-amber-deep uppercase font-bold tracking-wider">实时预估结算额 (当日计件)</p>
+<div class="flex items-baseline gap-1.5 mt-0.5">
+<span class="font-label-data-lg text-label-data-lg text-text-display" id="formula-count">280</span>
+<span class="text-text-muted text-sm">件 ×</span>
+<span class="font-label-data-md text-label-data-md text-text-display">1.50</span>
+<span class="text-text-muted text-sm">元/件 =</span>
+</div>
+</div>
+</div>
+<div class="text-right">
+<span class="text-income-amber-deep font-display-income text-display-income leading-none" id="total-amount">¥420.00</span>
+<p class="font-body-sm text-body-sm text-text-muted mt-1">按标准批次现结模式核算</p>
+</div>
+</div>
+<!-- Shift & Operational Notes Section -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-space-md pt-space-xs">
+<div class="flex flex-col gap-1.5">
+<label class="font-label-ui text-label-ui text-text-muted" for="shift-select">排班次序</label>
+<select class="h-12 bg-white border border-border-strong rounded px-3 font-body-md text-body-md text-text-display focus:border-primary focus:ring-0" id="shift-select">
+<option value="morning">早班 (08:00 - 16:30)</option>
+<option value="noon">中班 (13:00 - 21:30)</option>
+<option selected="" value="night">晚班加班 (18:00 - 02:00)</option>
+<option value="weekend">周末特殊排班</option>
+</select>
+</div>
+<div class="md:col-span-2 flex flex-col gap-1.5">
+<label class="font-label-ui text-label-ui text-text-muted" for="shift-notes">打包货品工单备注 (可选)</label>
+<input class="h-12 bg-white border border-border-strong rounded px-3 font-body-md text-body-md text-text-display focus:border-primary focus:ring-0" id="shift-notes" placeholder="例如：生鲜件加气泡垫 / 跨境保税特批" type="text" value="二楼大件分拣，加班急批次跨境特惠仓"/>
+</div>
+</div>
+<!-- Action Submission Bar & Invariant Warning -->
+<div class="flex flex-col gap-2 pt-2">
+<button class="w-full h-14 bg-primary-container hover:bg-primary active:translate-y-px rounded text-white font-body-lg text-body-lg font-bold flex items-center justify-center gap-2 shadow-sm transition-all" onclick="saveRecord()" type="button">
+<span class="material-symbols-outlined text-[22px]">save</span>
+<span>保存今日记录 (Ctrl+S / Enter)</span>
+</button>
+<p class="font-body-sm text-body-sm text-text-muted text-center flex items-center justify-center gap-1">
+<span class="material-symbols-outlined text-[15px] text-primary">verified_user</span>
+<span>单日多次提交自动覆盖更新当日最新汇总，不产生重复垃圾账单。</span>
+</p>
+</div>
+</div>
+<!-- Physical Hardware Keyboard Shortcuts Helper Bar -->
+<div class="bg-surface-card border border-border-subtle rounded px-space-md py-space-sm flex items-center justify-between text-body-sm text-text-muted">
+<div class="flex items-center gap-1 font-semibold text-text-display">
+<span class="material-symbols-outlined text-[18px]">terminal</span>
+<span class="font-label-ui text-label-ui">硬件工台快捷键指南:</span>
+</div>
+<div class="flex items-center gap-space-lg">
+<span class="inline-flex items-center gap-1"><kbd class="px-1.5 py-0.5 bg-surface-elevated border border-border-strong rounded text-xs font-mono text-text-display">F1</kbd> 归零清空</span>
+<span class="inline-flex items-center gap-1"><kbd class="px-1.5 py-0.5 bg-surface-elevated border border-border-strong rounded text-xs font-mono text-text-display">Enter</kbd> 快速存盘</span>
+<span class="inline-flex items-center gap-1"><kbd class="px-1.5 py-0.5 bg-surface-elevated border border-border-strong rounded text-xs font-mono text-text-display">Tab</kbd> 聚焦备注输入</span>
+<span class="inline-flex items-center gap-1"><kbd class="px-1.5 py-0.5 bg-surface-elevated border border-border-strong rounded text-xs font-mono text-text-display">Ctrl + S</kbd> 强制写入落盘</span>
+</div>
+</div>
+</section>
+<!-- ===================================================================== -->
+<!-- RIGHT COLUMN: Metrics Bento, Audit Trail & Station Health (5 Cols)   -->
+<!-- ===================================================================== -->
+<section class="col-span-12 xl:col-span-5 flex flex-col gap-space-lg">
+<!-- Top Metric Summary Cards (2x2 Industrial Grid) -->
+<div class="grid grid-cols-2 gap-space-md">
+<!-- Card 1: 今日打包 -->
+<div class="bg-surface-card border border-border-strong rounded p-space-md flex flex-col justify-between">
+<div class="flex items-center justify-between text-text-muted mb-2">
+<span class="font-label-ui text-label-ui">今日打包总量</span>
+<span class="material-symbols-outlined text-[20px] text-primary">package_2</span>
+</div>
+<div>
+<div class="flex items-baseline gap-1">
+<span class="font-display-income-mobile text-display-income-mobile text-text-display leading-tight" id="metric-today-count">280</span>
+<span class="font-body-sm text-body-sm text-text-muted font-bold">件</span>
+</div>
+<div class="font-label-data-md text-label-data-md text-income-amber-deep font-semibold mt-1" id="metric-today-income">
+                ¥420.00 <span class="text-xs text-text-muted font-normal">预收</span>
+</div>
+</div>
+</div>
+<!-- Card 2: 本月累计 -->
+<div class="bg-surface-card border border-border-strong rounded p-space-md flex flex-col justify-between">
+<div class="flex items-center justify-between text-text-muted mb-2">
+<span class="font-label-ui text-label-ui">本月累计包装</span>
+<span class="material-symbols-outlined text-[20px] text-secondary">local_shipping</span>
+</div>
+<div>
+<div class="flex items-baseline gap-1">
+<span class="font-display-income-mobile text-display-income-mobile text-text-display leading-tight">4,320</span>
+<span class="font-body-sm text-body-sm text-text-muted font-bold">件</span>
+</div>
+<div class="font-label-data-md text-label-data-md text-income-amber-deep font-semibold mt-1">
+                ¥6,480.00 <span class="text-xs text-text-muted font-normal">核算</span>
+</div>
+</div>
+</div>
+<!-- Card 3: 出勤天数 -->
+<div class="bg-surface-card border border-border-strong rounded p-space-md flex flex-col justify-between">
+<div class="flex items-center justify-between text-text-muted mb-2">
+<span class="font-label-ui text-label-ui">本月出勤工日</span>
+<span class="material-symbols-outlined text-[20px] text-slate-600">event_available</span>
+</div>
+<div>
+<div class="flex items-baseline gap-1">
+<span class="font-display-income-mobile text-display-income-mobile text-text-display leading-tight">24</span>
+<span class="font-body-sm text-body-sm text-text-muted font-bold">天</span>
+</div>
+<div class="font-body-sm text-body-sm text-status-connected font-medium mt-1">
+                满勤奖励达成
+              </div>
+</div>
+</div>
+<!-- Card 4: 达成率 -->
+<div class="bg-surface-card border border-border-strong rounded p-space-md flex flex-col justify-between">
+<div class="flex items-center justify-between text-text-muted mb-2">
+<span class="font-label-ui text-label-ui">工段达成率</span>
+<span class="material-symbols-outlined text-[20px] text-primary">trending_up</span>
+</div>
+<div>
+<div class="flex items-baseline gap-1">
+<span class="font-display-income-mobile text-display-income-mobile text-primary leading-tight">108%</span>
+</div>
+<div class="font-body-sm text-body-sm text-text-muted mt-1">
+                基准目标: 250件/日
+              </div>
+</div>
+</div>
+</div>
+<!-- Live Activity Feed / 最近3天打卡存证 List (Strict Inline Expand Non-intrusive) -->
+<div class="bg-surface-card border border-border-strong rounded p-space-md flex flex-col gap-space-sm">
+<div class="flex items-center justify-between border-b border-border-subtle pb-space-xs">
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-primary text-[20px]">assignment_turned_in</span>
+<h3 class="font-headline-sm text-headline-sm text-text-display">近3天记录存证存单</h3>
+</div>
+<span class="font-label-ui text-label-ui text-text-muted">免弹窗内联改单</span>
+</div>
+<!-- Feed Items Stack -->
+<div class="flex flex-col divide-y divide-border-subtle">
+<!-- Row 1: Today (2026-10-30) -->
+<div class="py-2.5 flex flex-col gap-1.5 transition-colors">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-status-connected"></span>
+<span class="font-label-data-md text-label-data-md font-bold text-text-display">10-30 (今日)</span>
+<span class="px-1.5 py-0.5 rounded bg-surface-elevated text-xs text-text-muted">晚班</span>
+</div>
+<div class="flex items-center gap-3">
+<span class="font-label-data-md text-label-data-md font-bold text-text-display">280 件</span>
+<span class="font-label-data-md text-label-data-md text-income-amber-deep font-semibold">¥420.00</span>
+<button class="h-6 px-2 text-xs border border-border-strong rounded bg-surface-card hover:bg-surface-elevated text-text-display font-medium" onclick="toggleInlineEdit(1)" type="button">
+                    改
+                  </button>
+</div>
+</div>
+<!-- Hidden Inline Edit container for row 1 -->
+<div class="hidden mt-2 p-2.5 bg-surface-elevated rounded border border-border-subtle flex items-center justify-between gap-2" id="inline-edit-1">
+<div class="flex items-center gap-2">
+<span class="text-xs text-text-muted">件数更正:</span>
+<input class="w-24 h-8 px-2 text-sm font-mono border border-border-strong rounded bg-white" type="number" value="280"/>
+</div>
+<div class="flex items-center gap-1">
+<button class="h-8 px-2.5 bg-primary-container text-white text-xs rounded font-medium" onclick="toggleInlineEdit(1)" type="button">存</button>
+<button class="h-8 px-2.5 bg-white border border-border-strong text-xs rounded text-text-muted" onclick="toggleInlineEdit(1)" type="button">取消</button>
+</div>
+</div>
+<p class="font-body-sm text-body-sm text-text-muted pl-4">更新时间: 21:14:02 · 二楼大件分拣，加班急批次</p>
+</div>
+<!-- Row 2: Yesterday (2026-10-29) -->
+<div class="py-2.5 flex flex-col gap-1.5">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-slate-300"></span>
+<span class="font-label-data-md text-label-data-md font-bold text-text-display">10-29 (昨日)</span>
+<span class="px-1.5 py-0.5 rounded bg-surface-elevated text-xs text-text-muted">中班</span>
+</div>
+<div class="flex items-center gap-3">
+<span class="font-label-data-md text-label-data-md font-bold text-text-display">310 件</span>
+<span class="font-label-data-md text-label-data-md text-income-amber-deep font-semibold">¥465.00</span>
+<span class="text-xs text-slate-400 px-1.5">已终审</span>
+</div>
+</div>
+<p class="font-body-sm text-body-sm text-text-muted pl-4">更新时间: 21:30:11 · 西区转运包裹打带加固</p>
+</div>
+<!-- Row 3: Day before yesterday (2026-10-28) -->
+<div class="py-2.5 flex flex-col gap-1.5">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-slate-300"></span>
+<span class="font-label-data-md text-label-data-md font-bold text-text-display">10-28 (前日)</span>
+<span class="px-1.5 py-0.5 rounded bg-surface-elevated text-xs text-text-muted">早班</span>
+</div>
+<div class="flex items-center gap-3">
+<span class="font-label-data-md text-label-data-md font-bold text-text-display">295 件</span>
+<span class="font-label-data-md text-label-data-md text-income-amber-deep font-semibold">¥442.50</span>
+<span class="text-xs text-slate-400 px-1.5">已终审</span>
+</div>
+</div>
+<p class="font-body-sm text-body-sm text-text-muted pl-4">更新时间: 16:32:45 · 国际标准平邮信封打包线</p>
+</div>
+</div>
+</div>
+<!-- Local Storage & Network Connectivity Status Terminal -->
+<div class="bg-surface-elevated border border-border-strong rounded p-space-md flex flex-col gap-2">
+<div class="flex items-center justify-between">
+<span class="font-label-ui text-label-ui text-text-display font-semibold flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[16px] text-status-connected">cloud_done</span>
+              工台双通道容灾架构
+            </span>
+<span class="inline-flex items-center px-1.5 py-0.5 rounded text-[11px] font-mono bg-emerald-100 text-status-connected font-bold">
+              双模就绪
+            </span>
+</div>
+<div class="grid grid-cols-2 gap-2 mt-1">
+<div class="bg-white p-2 rounded border border-border-subtle flex flex-col">
+<span class="text-xs text-text-muted">前端本地落盘</span>
+<span class="font-label-data-md text-label-data-md text-text-display font-semibold mt-0.5">IndexedDB 正常</span>
+<span class="text-[11px] text-slate-400">毫秒级断网持久化</span>
+</div>
+<div class="bg-white p-2 rounded border border-border-subtle flex flex-col">
+<span class="text-xs text-text-muted">仓储总线通讯</span>
+<span class="font-label-data-md text-label-data-md text-text-display font-semibold mt-0.5">局域专网已联</span>
+<span class="text-[11px] text-slate-400">延迟 18ms · 丢包 0%</span>
+</div>
+</div>
+</div>
+</section>
+</div>
+</main>
+<!-- ========================================================================= -->
+<!-- LIGHTWEIGHT INTERACTION LOGIC                                             -->
+<!-- ========================================================================= -->
+<script>
+    const unitPrice = 1.50;
+    const countInput = document.getElementById('parcel-count-input');
+    const totalAmount = document.getElementById('total-amount');
+    const formulaCount = document.getElementById('formula-count');
+    const metricTodayCount = document.getElementById('metric-today-count');
+    const metricTodayIncome = document.getElementById('metric-today-income');
+
+    function updateCalculations() {
+      let val = parseInt(countInput.value, 10);
+      if (isNaN(val) || val < 0) {
+        val = 0;
+      }
+      const sum = (val * unitPrice).toFixed(2);
+      totalAmount.textContent = '¥' + sum;
+      formulaCount.textContent = val;
+      metricTodayCount.textContent = val;
+      metricTodayIncome.innerHTML = '¥' + sum + ' <span class="text-xs text-text-muted font-normal">预收</span>';
+    }
+
+    function adjustCount(delta) {
+      let cur = parseInt(countInput.value, 10) || 0;
+      countInput.value = Math.max(0, cur + delta);
+      updateCalculations();
+    }
+
+    function resetCount() {
+      countInput.value = 0;
+      updateCalculations();
+      countInput.focus();
+    }
+
+    function saveRecord() {
+      updateCalculations();
+      const val = countInput.value;
+      const originalText = countInput.parentElement.classList;
+      
+      // Inline flash feedback
+      countInput.classList.add('border-status-connected');
+      setTimeout(() => {
+        countInput.classList.remove('border-status-connected');
+      }, 500);
+    }
+
+    function toggleInlineEdit(id) {
+      const el = document.getElementById('inline-edit-' + id);
+      if (el) {
+        el.classList.toggle('hidden');
+      }
+    }
+
+    countInput.addEventListener('input', updateCalculations);
+
+    // Keyboard shortcuts handling
+    window.addEventListener('keydown', (e) => {
+      // F1 -> Reset Count
+      if (e.key === 'F1') {
+        e.preventDefault();
+        resetCount();
+      }
+      // Enter or Ctrl+S -> Save
+      if ((e.key === 's' && (e.ctrlKey || e.metaKey)) || (e.key === 'Enter' && e.target === countInput)) {
+        e.preventDefault();
+        saveRecord();
+      }
+    });
+  </script>
+</body></html>

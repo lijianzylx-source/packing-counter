@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>速达跨境计件 · 每日打包统计</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='7' fill='%2300288e'/><path d='M9 13l7-4 7 4v8l-7 4-7-4z' fill='none' stroke='white' stroke-width='2' stroke-linejoin='round'/></svg>">
+<link rel="stylesheet" href="assets/css/tokens.css">
+<link rel="stylesheet" href="assets/css/base.css">
+<style>
+  body { display: grid; place-items: center; min-height: 100vh; }
+  .boot { text-align: center; }
+  .boot__mark {
+    width: 48px; height: 48px; margin: 0 auto 16px;
+    display: grid; place-items: center;
+    border-radius: 12px; background: var(--c-primary-container); color: #fff;
+  }
+  .boot h1 { font-size: 20px; margin-bottom: 6px; }
+  .boot p { color: var(--c-text-muted); font-size: 13px; margin-bottom: 20px; }
+  .boot a { color: var(--c-secondary); font-weight: 600; }
+</style>
+</head>
+<body>
+  <div class="boot">
+    <div class="boot__mark">
+      <svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round">
+        <path d="M3 8l9-5 9 5v8l-9 5-9-5z"/><path d="M3 8l9 5 9-5"/><path d="M12 13v8"/>
+      </svg>
+    </div>
+    <h1>速达跨境计件</h1>
+    <p>每日打包统计 · 正在进入…</p>
+    <p><a href="pages/login.html">如果没有自动跳转，请点此进入登录页 →</a></p>
+  </div>
+  <script>
+    location.replace('pages/login.html' + location.hash);
+  </script>
+</body>
+</html>

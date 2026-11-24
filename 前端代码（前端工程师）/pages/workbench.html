@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>今日录入 · 速达跨境计件</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='7' fill='%2300288e'/><path d='M9 13l7-4 7 4v8l-7 4-7-4z' fill='none' stroke='white' stroke-width='2' stroke-linejoin='round'/></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<!-- 字体为渐进增强：加载失败时回退到系统字体，不阻塞渲染 -->
+<link rel="stylesheet" media="print" onload="this.media='all';this.onload=null"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap">
+
+<link rel="stylesheet" href="../assets/css/tokens.css">
+<link rel="stylesheet" href="../assets/css/base.css">
+<link rel="stylesheet" href="../assets/css/components.css">
+<link rel="stylesheet" href="../assets/css/layout.css">
+<link rel="stylesheet" href="../assets/css/chart.css">
+<link rel="stylesheet" href="../assets/css/utilities.css">
+</head>
+<body>
+
+<div class="l-shell">
+  <div class="l-anchor" id="shell-anchor"></div>
+
+  <main class="l-main" id="page-root">
+
+    <!-- 日期锁定公告（F-001） -->
+    <section class="c-card c-card--strong u-flex u-items-center u-justify-between" style="gap:var(--space-md)">
+      <div class="u-flex u-items-center u-gap-md">
+        <span class="l-sidenav__mark" style="background:var(--c-surface-container);color:var(--c-primary)">
+          <svg class="icon" style="font-size:20px" aria-hidden="true"><use href="#i-calendar_today"></use></svg>
+        </span>
+        <div>
+          <div class="u-flex u-items-center u-gap-sm">
+            <span class="head" style="font-size:18px;line-height:24px;font-weight:600;color:var(--c-text-display)" id="today-date">—</span>
+            <span class="c-badge c-badge--primary">当日锁定</span>
+          </div>
+          <p class="u-sm u-muted" style="margin-top:2px">
+            首页只记当天，杜绝误录。补录或修改往日记录请到
+            <a class="u-strong" href="history.html" style="color:var(--c-secondary)">历史明细</a> 页。
+          </p>
+        </div>
+      </div>
+      <div class="u-flex u-items-center u-gap-md">
+        <div class="u-right">
+          <div class="u-label">今日结算</div>
+          <div class="mono u-strong" style="color:var(--c-success-deep)" id="today-status">待录入</div>
+        </div>
+      </div>
+    </section>
+
+    <div class="l-grid-12">
+
+      <!-- 左：录入终端 -->
+      <section class="l-col-7" style="display:flex;flex-direction:column;gap:var(--space-lg)">
+
+        <div class="c-card c-card--strong c-card--pad" style="display:flex;flex-direction:column;gap:var(--space-lg)">
+          <div class="c-card__head">
+            <div>
+              <h2 class="c-card__title">计件包裹录入端</h2>
+              <p class="c-card__sub">输入当日完成打包件数，实时核算结算金额</p>
+            </div>
+            <span class="c-badge"><svg class="icon" style="font-size:16px" aria-hidden="true"><use href="#i-keyboard"></use></svg>支持小键盘直输</span>
+          </div>
+
+          <!-- 件数输入 -->
+          <div class="c-field">
+            <div class="u-flex u-items-center u-justify-between">
+              <label class="u-label" for="count-input">本日完成打包量</label>
+              <span class="u-label">支持快捷加件</span>
+            </div>
+            <div class="u-flex u-items-center u-gap-sm">
+              <input type="number" id="count-input" class="c-input c-input--lg c-input--count" inputmode="numeric" min="0" step="1" placeholder="0" autocomplete="off">
+              <span class="u-label">件</span>
+            </div>
+          </div>
+
+          <!-- 快捷加件 -->
+          <div>
+            <div class="u-label" style="margin-bottom:6px">一键快速增量垫计</div>
+            <div class="grid grid-cols-6 u-gap-sm">
+              <button type="button" class="c-step" data-step="10">+10</button>
+              <button type="button" class="c-step" data-step="20">+20</button>
+              <button type="button" class="c-step" data-step="50">+50</button>
+              <button type="button" class="c-step" data-step="100">+100</button>
+              <button type="button" class="c-step" data-step="200">+200</button>
+              <button type="button" class="c-step" id="btn-clear-count" style="color:var(--c-error-deep);border-color:#FECACA;background:var(--c-error-soft)">清空</button>
+            </div>
+          </div>
+
+          <!-- 实时结算（F-002） -->
+          <div class="c-card" style="background:var(--c-income-soft);border-color:var(--c-income);display:flex;align-items:center;justify-content:space-between;gap:var(--space-md)">
+            <div class="u-flex u-items-center u-gap-md">
+              <svg class="icon" style="font-size:28px;color:var(--c-income-deep)" aria-hidden="true"><use href="#i-payments"></use></svg>
+              <div>
+                <div class="u-label" style="color:var(--c-income-deep)">实时预估结算额（当日计件）</div>
+                <div class="u-flex u-items-baseline u-gap-sm" style="margin-top:2px">
+                  <span class="mono u-strong" id="formula-count">0</span>
+                  <span class="u-sm u-muted">件 ×</span>
+                  <span class="mono u-strong" id="formula-price">1.50</span>
+                  <span class="u-sm u-muted">元/件 =</span>
+                </div>
+              </div>
+            </div>
+            <div class="u-right">
+              <span class="mono" style="font-size:40px;line-height:48px;font-weight:700;color:var(--c-income-deep)" id="total-amount">¥0.00</span>
+              <p class="u-sm u-muted">按标准批次现结模式核算</p>
+            </div>
+          </div>
+
+          <!-- 单价 + 备注 -->
+          <div class="grid grid-cols-1 md:grid-cols-3 u-gap-md">
+            <div class="c-field">
+              <span class="u-label">计件单价（设置页可改）</span>
+              <div class="c-readonly mono">
+                <span id="unit-price-text">¥1.50</span><span class="u-sm u-muted">/件</span>
+              </div>
+            </div>
+            <div class="c-field md:col-span-2">
+              <label class="u-label" for="note-input">打包备注（可选）</label>
+              <input type="text" id="note-input" class="c-input" maxlength="100" placeholder="例如：生鲜件加气泡垫 / 跨境保税特批">
+            </div>
+          </div>
+
+          <!-- 保存 -->
+          <div style="display:flex;flex-direction:column;gap:8px">
+            <button type="button" class="c-btn c-btn--primary c-btn--lg c-btn--block" id="btn-save">
+              <svg class="icon" style="font-size:22px" aria-hidden="true"><use href="#i-save"></use></svg>
+              保存今日记录（Ctrl + Enter）
+            </button>
+            <p class="u-sm u-muted u-center u-flex u-items-center u-justify-center u-gap-sm">
+              <svg class="icon" style="font-size:15px;color:var(--c-primary)" aria-hidden="true"><use href="#i-verified_user"></use></svg>
+              单日多次提交自动覆盖更新当日最新汇总，不产生重复记录。
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- 右：指标与最近记录 -->
+      <section class="l-col-5" style="display:flex;flex-direction:column;gap:var(--space-lg)">
+
+        <div class="grid grid-cols-2 u-gap-md">
+          <div class="c-kpi">
+            <div class="u-flex u-items-center u-justify-between">
+              <span class="c-kpi__label">今日打包总量</span>
+              <svg class="icon" style="font-size:20px;color:var(--c-primary)" aria-hidden="true"><use href="#i-package_2"></use></svg>
+            </div>
+            <div>
+              <div class="u-flex u-items-baseline u-gap-sm">
+                <span class="c-kpi__value c-kpi__value--sm" id="metric-today-count">0</span>
+                <span class="c-kpi__unit">件</span>
+              </div>
+              <div class="mono u-sm u-strong" style="color:var(--c-income-deep)" id="metric-today-income">¥0.00</div>
+            </div>
+          </div>
+
+          <div class="c-kpi">
+            <div class="u-flex u-items-center u-justify-between">
+              <span class="c-kpi__label">本月累计包装</span>
+              <svg class="icon" style="font-size:20px;color:var(--c-secondary)" aria-hidden="true"><use href="#i-local_shipping"></use></svg>
+            </div>
+            <div>
+              <div class="u-flex u-items-baseline u-gap-sm">
+                <span class="c-kpi__value c-kpi__value--sm" id="metric-month-count">0</span>
+                <span class="c-kpi__unit">件</span>
+              </div>
+              <div class="mono u-sm u-strong" style="color:var(--c-income-deep)" id="metric-month-income">¥0.00</div>
+            </div>
+          </div>
+
+          <div class="c-kpi">
+            <div class="u-flex u-items-center u-justify-between">
+              <span class="c-kpi__label">本月出勤工日</span>
+              <svg class="icon" style="font-size:20px;color:var(--c-text-muted)" aria-hidden="true"><use href="#i-event_available"></use></svg>
+            </div>
+            <div>
+              <div class="u-flex u-items-baseline u-gap-sm">
+                <span class="c-kpi__value c-kpi__value--sm" id="metric-workdays">0</span>
+                <span class="c-kpi__unit">天</span>
+              </div>
+              <div class="c-kpi__foot" id="metric-missing">未记录 0 天</div>
+            </div>
+          </div>
+
+          <div class="c-kpi">
+            <div class="u-flex u-items-center u-justify-between">
+              <span class="c-kpi__label">日均人效</span>
+              <svg class="icon" style="font-size:20px;color:var(--c-primary)" aria-hidden="true"><use href="#i-trending_up"></use></svg>
+            </div>
+            <div>
+              <div class="u-flex u-items-baseline u-gap-sm">
+                <span class="c-kpi__value c-kpi__value--sm" id="metric-avg">0</span>
+                <span class="c-kpi__unit">件/天</span>
+              </div>
+              <div class="c-kpi__foot">日均收入 <span class="mono" id="metric-avg-income">¥0.00</span></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 最近记录（行内编辑，零弹窗） -->
+        <div class="c-card c-card--pad" style="display:flex;flex-direction:column;gap:var(--space-sm)">
+          <div class="c-card__head">
+            <span class="u-flex u-items-center u-gap-sm">
+              <svg class="icon" style="color:var(--c-primary);font-size:20px" aria-hidden="true"><use href="#i-assignment_turned_in"></use></svg>
+              <span class="c-card__title">近 3 天记录存证</span>
+            </span>
+            <span class="u-label">免弹窗内联改单</span>
+          </div>
+          <div id="recent-list" style="display:flex;flex-direction:column"></div>
+          <a href="history.html" class="c-btn c-btn--ghost c-btn--sm" style="margin-top:4px">
+            查看全部历史明细
+          </a>
+        </div>
+
+        <!-- 作业须知（右下角） -->
+        <div class="c-card c-card--pad" style="display:flex;flex-direction:column;gap:var(--space-sm)">
+          <span class="u-label u-label-strong u-flex u-items-center u-gap-sm">
+            <svg class="icon" style="color:var(--c-primary);font-size:18px" aria-hidden="true"><use href="#i-campaign"></use></svg>
+            作业须知（PRD v1.0.1）
+          </span>
+          <ul class="u-sm u-muted" style="display:flex;flex-direction:column;gap:6px;list-style:disc;padding-left:18px">
+            <li>首页只记录「今天」，日期自动锁定，避免误录。</li>
+            <li>补录与修改往日记录请到「历史明细」页完成。</li>
+            <li>密码连续输错 5 次将锁定该账号 15 分钟。</li>
+            <li>打包记录保存在本机浏览器，不上传服务器。</li>
+          </ul>
+        </div>
+      </section>
+    </div>
+  </main>
+</div>
+
+<script src="../assets/js/config.js"></script>
+<script src="../assets/js/core.js"></script>
+<script src="../assets/js/store.js"></script>
+<script src="../assets/js/api.js"></script>
+<script src="../assets/js/auth.js"></script>
+<script src="../assets/js/icons.js"></script>
+<script src="../assets/js/avatar.js"></script>
+<script src="../assets/js/ui.js"></script>
+<script src="../assets/js/chart.js"></script>
+<script src="../assets/js/pages/workbench.js"></script>
+</body>
+</html>
